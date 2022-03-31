@@ -1,0 +1,33 @@
+.logo{
+    width: 60px;
+}
+
+.carImage{
+    width: 100%;
+    margin-left: 50px;
+}
+
+.introduction{
+    color: white;
+}
+
+.letraMenu{
+    color: white;
+}
+
+.rentButton{
+    background-color: wheat;
+    color: black;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+footer {
+    padding: 3px;
+    background-color: gray;
+    color: white;
+    margin-top: 50px;
+    height: 135px;
+}
+
+body{
+    background-color: black;
+}

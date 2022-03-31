@@ -1,0 +1,89 @@
+<html>
+    <head>
+        <title>AHA Garage</title>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/css/bootstrap.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.1/dist/js/bootstrap.bundle.min.js"></script>
+        <link rel="stylesheet" href="garageDesign.css">
+    </head>
+    <body>
+        <!--Menu-->
+        <nav class="navbar navbar-expand-sm bg-dark">
+            <ul class="navbar-nav mr-auto">
+               
+                <a class="navbar-brand" href="#">
+                  <img src="car.jpg" alt="Logo" class="logo">
+                </a>
+                
+            </ul>
+            <ul class="navbar-nav ml-auto">   
+                <li class="nav-item">
+                     <a class="nav-link letraMenu" href="#">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link letraMenu" href="#">About us</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link letraMenu" href="#">Contact</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link letraMenu" href="#">Log in</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link letraMenu" href="#">Sign in</a>
+                </li> 
+            </ul>
+        </nav>
+
+        <div class="container-sm">
+            <div class="mt-4">
+                <h1 class="introduction">Introduction</h1>
+            </div>
+            <!--Carousel-->
+            <div id="demo" class="carousel slide mt-4" data-ride="carousel">
+                <!-- Indicators -->
+                <ul class="carousel-indicators">
+                  <li data-target="#demo" data-slide-to="0" class="active"></li>
+                  <li data-target="#demo" data-slide-to="1"></li>
+                  <li data-target="#demo" data-slide-to="2"></li>
+                </ul>
+              
+                <!-- The slideshow -->
+                <div class="carousel-inner">
+                  <div class="carousel-item active">
+                    <img src="car.jpg" alt="Los Angeles" class="carImage">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="car.jpg" alt="Chicago" class="carImage">
+                  </div>
+                  <div class="carousel-item">
+                    <img src="car.jpg" alt="New York" class="carImage">
+                  </div>
+                </div>
+              
+                <!-- Left and right controls -->
+                <a class="carousel-control-prev" href="#demo" data-slide="prev">
+                  <span class="carousel-control-prev-icon"></span>
+                </a>
+                <a class="carousel-control-next" href="#demo" data-slide="next">
+                  <span class="carousel-control-next-icon"></span>
+                </a>
+              </div>
+
+              <div class="d-flex justify-content-end mt-4">
+                <button type="button" class="btn rentButton">RENT</button>
+              </div>
+        </div>
+    </body>
+    <footer>
+        <div class="container-fluid">
+            <h5>AHA Garage</h5>
+            <h5>Address</h5>
+            <h5>Email</h5>
+            <h5>Timetable</h5>
+        </div>
+    </footer>
+</html>
