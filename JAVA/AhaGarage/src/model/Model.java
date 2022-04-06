@@ -133,38 +133,43 @@ public class Model {
     
     public void drawReport1(Graphics g){
         g.setColor(Color.MAGENTA);
-        g.drawLine(70, 350, 70, 200);
-        g.drawLine(90, 350,90, 250);
-        g.drawLine(110, 350,110, 320);
-        g.drawLine(130, 350,130, 225);
-        g.drawLine(150, 350,150, 235);
+        //g.drawLine(70, 350, 70, 200);
+        //g.drawLine(90, 350,90, 250);
+        //g.drawLine(110, 350,110, 320);
+        //g.drawLine(130, 350,130, 225);
+        //g.drawLine(150, 350,150, 235);
+        g.fillRect(70, 350-25, 10, 25);
+        g.fillRect(100, 350-45, 10, 45);
+        g.fillRect(130, 350-100, 10, 100);
+        g.fillRect(160, 350-60, 10, 60);
+        g.fillRect(190, 350-40, 10, 40);
     }
     
     public void drawReport2(Graphics g){
         g.setColor(Color.GREEN);
-        g.drawLine(70, 350, 70, 200);
-        g.drawLine(90, 350,90, 250);
-        g.drawLine(110, 350,110, 320);
-        g.drawLine(130, 350,130, 225);
-        g.drawLine(150, 350,150, 235);
+        g.fillRect(70, 350-25, 10, 25);
+        g.fillRect(100, 350-45, 10, 45);
+        g.fillRect(130, 350-100, 10, 100);
+        g.fillRect(160, 350-60, 10, 60);
+        g.fillRect(190, 350-40, 10, 40);
     }
     
     public void drawReport3(Graphics g){
         g.setColor(Color.ORANGE);
-        g.drawLine(70, 350, 70, 200);
-        g.drawLine(90, 350,90, 250);
-        g.drawLine(110, 350,110, 320);
-        g.drawLine(130, 350,130, 225);
-        g.drawLine(150, 350,150, 235);
+        g.fillRect(70, 350-25, 10, 25);
+        g.fillRect(100, 350-45, 10, 45);
+        g.fillRect(130, 350-100, 10, 100);
+        g.fillRect(160, 350-60, 10, 60);
+        g.fillRect(190, 350-40, 10, 40);
     }
     
     public void drawReport4(Graphics g){
         g.setColor(Color.RED);
-        g.drawLine(70, 350,70, 200);
-        g.drawLine(90, 350,90, 250);
-        g.drawLine(110, 350,110, 320);
-        g.drawLine(130, 350,130, 225);
-        g.drawLine(150, 350,150, 235);
+        g.fillRect(70, 350-25, 10, 25);
+        g.fillRect(100, 350-45, 10, 45);
+        g.fillRect(130, 350-100, 10, 100);
+        g.fillRect(160, 350-60, 10, 60);
+        g.fillRect(190, 350-40, 10, 40);
     }
     
     public static void main(String[] args) {
