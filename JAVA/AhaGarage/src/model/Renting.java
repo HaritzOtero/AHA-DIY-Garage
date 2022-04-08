@@ -17,6 +17,13 @@ public class Renting {
     private Garage garage;
     private LocalDate date;
 
+    public Renting(Client client,int hours){
+        this.client = client;
+        this.hours = hours;
+        this.price = 0;
+        this.garage = null;
+        this.date = null;
+    }
     public Renting(Client client, int price, int hours, Garage garage, LocalDate date) {
         this.client = client;
         this.price = price;

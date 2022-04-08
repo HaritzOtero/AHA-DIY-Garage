@@ -8,7 +8,11 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
+import javax.swing.JTable;
+import model.GarageOccupationTableModel;
 import model.Model;
+import model.RentedHoursTableModel;
+import model.SoldProductsTableModel;
 import view.View;
 
 /**
@@ -25,7 +29,7 @@ public class Controller implements ActionListener{
         this.view = view;
         gehituActionListener(this);
         
-        view.jTextAreaTextualReports.setEditable(false);
+        //view.jTextAreaTextualReports.setEditable(false);
         //Textual radio buttons
         ButtonGroup group1 = new ButtonGroup();
         group1.add(view.jRadioButtonSoldProducts);
@@ -67,21 +71,25 @@ public class Controller implements ActionListener{
                 gGraphics = view.jDialogGraphicReports.getGraphics();
                 break;
             case "TEXTUAL REPORTS":
-                view.jDialogTextualReports.setSize(550,425);
+                view.jRadioButtonSoldProducts.setSelected(true);
+                view.jDialogTextualReports.setSize(700,600);
                 view.jDialogTextualReports.setResizable(false);
                 view.jDialogTextualReports.setVisible(true);
                 break;
             case "Most sold products":
-                view.jTextAreaTextualReports.setText("Most Sold Products");
+                view.jTableReports.setModel(new SoldProductsTableModel(Model.mostSoldProductsArray()));
+                //view.jTextAreaTextualReports.setText("Most Sold Products");
                 break;
             case "Garage occupation":
-                view.jTextAreaTextualReports.setText("Garage Occupation");
+                view.jTableReports.setModel(new GarageOccupationTableModel(Model.garageOccupationArray()));
+                //view.jTextAreaTextualReports.setText("Garage Occupation");
                 break;
             case "Rented hours by client":
-                view.jTextAreaTextualReports.setText("Rented Hours");
+                view.jTableReports.setModel(new RentedHoursTableModel(Model.rentedHoursByClientArray()));
+                //view.jTextAreaTextualReports.setText("Rented Hours");
                 break;
             case "Income by client":
-                view.jTextAreaTextualReports.setText("Income by client");
+                //view.jTextAreaTextualReports.setText("Income by client");
                 break;
             case "SAVE":
                 //Save textual report

@@ -18,12 +18,12 @@ public class Selling {
     private int productAmount;
     private LocalDate date;
     
-    public Selling(Product product){
+    public Selling(Product product,int productAmount, int totalCost){
         this.id = 0;
         this.client = null;
         this.product = product;
-        this.totalCost = 0;
-        this.productAmount = 0;
+        this.totalCost = totalCost;
+        this.productAmount = productAmount;
         this.date = null;
     }
 

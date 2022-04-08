@@ -12,6 +12,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import javax.swing.JDialog;
 
 /**
@@ -80,7 +81,7 @@ public class Model {
         }
     }
     
-    public static void garageOccupation(){
+    /*public static void garageOccupation(){
         String sql = "SELECT date, rented_hours, garage_id,r.client_id,name,surname FROM renting r, client c where r.client_id = c.client_id && date >= '2022-02-01' && date <= '2022-02-28' order by `date` ";
                 
         try (Connection conn = Model.connect();
@@ -114,14 +115,77 @@ public class Model {
             // loop through the result set
             while (rs.next()) {
                 Product p1 = new Product(rs.getInt("s.product_id"), rs.getString("name"));
-                Selling s1 = new Selling(p1);
-                System.out.printf("\n%15d %15s %15d ",s1.getProduct().getId(),s1.getProduct().getName(),rs.getInt("count(s.selling_id)"));
+                Selling s1 = new Selling(p1,rs.getInt("count(s.selling_id)"));
+                System.out.printf("\n%15d %15s %15d ",s1.getProduct().getId(),s1.getProduct().getName(),s1.getProductAmount());
             }
             System.out.println("");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }*/
+    
+    public static ArrayList<Selling> mostSoldProductsArray(){
+        String sql = "select p.product_id, name, count(s.selling_id),(count(s.selling_id) * price) from products p left join selling s on s.product_id  = p.product_id group by product_id order by count(s.selling_id) desc";
+        ArrayList<Selling> products = new ArrayList();
+        try (Connection conn = Model.connect();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
+            // loop through the result set
+            while (rs.next()) {
+                Product p1 = new Product(rs.getInt("p.product_id"), rs.getString("name"));
+                Selling s1 = new Selling(p1,rs.getInt("count(s.selling_id)"),rs.getInt("(count(s.selling_id) * price)"));
+                products.add(s1);
+            }
+            
+            return products;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
+    
+    public static ArrayList<Renting> garageOccupationArray(){
+        String sql = "SELECT date, rented_hours, garage_id,r.client_id,name,surname FROM renting r, client c where r.client_id = c.client_id order by date asc";
+        ArrayList<Renting> occupation= new ArrayList<>();
+        try (Connection conn = Model.connect();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
+
+            // loop through the result set
+            while (rs.next()) {
+                Client c1 = new Client(rs.getInt("client_id"),rs.getString("name"),rs.getString("surname"));
+                Garage g1 = new Garage(rs.getInt("garage_id"));
+                Renting r1 = new Renting(c1, rs.getInt("rented_hours")*20, rs.getInt("rented_hours"), g1, rs.getDate("date").toLocalDate());
+                occupation.add(r1);
+            }  
+            return occupation;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    
+    public static ArrayList<Renting> rentedHoursByClientArray(){
+        String sql = "select c.client_id, c.name, c.surname,sum(r.rented_hours)  from client c,renting r where r.client_id = c.client_id group by client_id order by sum(r.rented_hours) desc";
+        ArrayList<Renting> rentedHours = new ArrayList<>();
+        try (Connection conn = Model.connect();
+                Statement stmt = conn.createStatement();
+                ResultSet rs = stmt.executeQuery(sql)) {
+
+            // loop through the result set
+            while (rs.next()) {
+                Client c1 = new Client(rs.getInt("c.client_id"),rs.getString("c.name"),rs.getString("c.surname"));
+                Renting r1 = new Renting(c1, rs.getInt("sum(r.rented_hours)"));
+                rentedHours.add(r1);
+            }  
+            return rentedHours;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+    
+    
     
     public void drawGraphicBase(Graphics g){
         g.clearRect(40, 100, 300, 300);
@@ -174,6 +238,6 @@ public class Model {
     
     public static void main(String[] args) {
         //selectEmployees();
-        mostSoldProducts();
+        //mostSoldProducts();
     }
 }
