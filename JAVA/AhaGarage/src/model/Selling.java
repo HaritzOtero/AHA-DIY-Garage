@@ -14,11 +14,11 @@ public class Selling {
     private int id;
     private Client client;
     private Product product;
-    private int totalCost;
+    private double totalCost;
     private int productAmount;
     private LocalDate date;
     
-    public Selling(Product product,int productAmount, int totalCost){
+    public Selling(Product product,int productAmount, double totalCost){
         this.id = 0;
         this.client = null;
         this.product = product;
@@ -27,7 +27,7 @@ public class Selling {
         this.date = null;
     }
 
-    public Selling(int id, Client client, Product product, int totalCost, int productAmount, LocalDate date) {
+    public Selling(int id, Client client, Product product, double totalCost, int productAmount, LocalDate date) {
         this.id = id;
         this.client = client;
         this.product = product;
@@ -48,7 +48,7 @@ public class Selling {
         return product;
     }
 
-    public int getTotalCost() {
+    public double getTotalCost() {
         return totalCost;
     }
 

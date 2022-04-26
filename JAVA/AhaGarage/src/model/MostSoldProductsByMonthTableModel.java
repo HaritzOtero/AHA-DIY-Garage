@@ -11,16 +11,16 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author soto.aitzol
  */
-public class GarageOccupationTableModel extends AbstractTableModel{
-    private final String[] zutabeIzenak = {"DATE", "HOURS", "GARAGE_ID","CLIENT_ID","NAME","PRICE"};
-    ArrayList<Renting> occupation = new ArrayList();
+public class MostSoldProductsByMonthTableModel extends AbstractTableModel{
+    private final String[] zutabeIzenak = {"PRODUCT ID", "NAME","AMOUNT SOLD","INCOME"};
+    ArrayList<Selling> products = new ArrayList();
     
-    public GarageOccupationTableModel(ArrayList<Renting> dOccupation){
-        this.occupation = dOccupation;
+    public MostSoldProductsByMonthTableModel(ArrayList<Selling> products){
+        this.products = products;
     }
     @Override
     public int getRowCount() {
-        return occupation.size();
+        return products.size();
     }
     
     @Override
@@ -36,17 +36,13 @@ public class GarageOccupationTableModel extends AbstractTableModel{
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         if(columnIndex == 0){
-            return occupation.get(rowIndex).getDate().toString();
+            return products.get(rowIndex).getProduct().getId();
         }else if (columnIndex == 1){
-            return occupation.get(rowIndex).getHours();
+            return products.get(rowIndex).getProduct().getName();
         }else if (columnIndex == 2){
-            return occupation.get(rowIndex).getGarage().getGarageCode();
+            return products.get(rowIndex).getProductAmount();
         }else if (columnIndex == 3){
-            return occupation.get(rowIndex).getClient().getId();
-        }else if (columnIndex == 4){
-            return occupation.get(rowIndex).getClient().getName();
-        }else if (columnIndex == 5){
-            return occupation.get(rowIndex).getPrice();
+            return products.get(rowIndex).getTotalCost();
         }
         return null;
     }

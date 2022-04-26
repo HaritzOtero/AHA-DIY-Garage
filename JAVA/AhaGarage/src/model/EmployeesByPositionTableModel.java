@@ -11,16 +11,16 @@ import javax.swing.table.AbstractTableModel;
  *
  * @author soto.aitzol
  */
-public class GarageOccupationTableModel extends AbstractTableModel{
-    private final String[] zutabeIzenak = {"DATE", "HOURS", "GARAGE_ID","CLIENT_ID","NAME","PRICE"};
-    ArrayList<Renting> occupation = new ArrayList();
+public class EmployeesByPositionTableModel extends AbstractTableModel{
+    private final String[] zutabeIzenak = {"EMPLOYEE ID", "NAME", "SURNAME", "AGE","SALARY"};
+    ArrayList<Employee> employees = new ArrayList();
     
-    public GarageOccupationTableModel(ArrayList<Renting> dOccupation){
-        this.occupation = dOccupation;
+    public EmployeesByPositionTableModel(ArrayList<Employee> employees){
+        this.employees = employees;
     }
     @Override
     public int getRowCount() {
-        return occupation.size();
+        return employees.size();
     }
     
     @Override
@@ -36,17 +36,15 @@ public class GarageOccupationTableModel extends AbstractTableModel{
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         if(columnIndex == 0){
-            return occupation.get(rowIndex).getDate().toString();
+            return employees.get(rowIndex).getId();
         }else if (columnIndex == 1){
-            return occupation.get(rowIndex).getHours();
+            return employees.get(rowIndex).getName();
         }else if (columnIndex == 2){
-            return occupation.get(rowIndex).getGarage().getGarageCode();
+            return employees.get(rowIndex).getSurname();
         }else if (columnIndex == 3){
-            return occupation.get(rowIndex).getClient().getId();
-        }else if (columnIndex == 4){
-            return occupation.get(rowIndex).getClient().getName();
-        }else if (columnIndex == 5){
-            return occupation.get(rowIndex).getPrice();
+            return employees.get(rowIndex).getAge();
+        }else if(columnIndex == 4){
+            return employees.get(rowIndex).getSalary();
         }
         return null;
     }

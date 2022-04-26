@@ -9,10 +9,12 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.JTable;
+import model.EmployeesByPositionTableModel;
 import model.GarageOccupationTableModel;
 import model.Model;
-import model.RentedHoursTableModel;
+import model.MostSoldProductsByMonthTableModel;
 import model.SoldProductsTableModel;
+import model.TotalRentedHoursByClientTableModel;
 import view.View;
 
 /**
@@ -34,14 +36,17 @@ public class Controller implements ActionListener{
         ButtonGroup group1 = new ButtonGroup();
         group1.add(view.jRadioButtonSoldProducts);
         group1.add(view.jRadioButtonGarageOcuppation);
-        group1.add(view.jRadioButtonRentedHours);
-        group1.add(view.jRadioButtonIncomeByClient);
+        group1.add(view.jRadioButtonProductsByMonth);
+        group1.add(view.jRadioButtonTotalRentedHours);
+        group1.add(view.jRadioButtonEmployeeByPosition);
         //Graphic radio buttons
         ButtonGroup group2 = new ButtonGroup();
         group2.add(view.jRadioButtonReport1);
         group2.add(view.jRadioButtonReport2);
         group2.add(view.jRadioButtonReport3);
         group2.add(view.jRadioButtonReport4);
+       
+        
     }
     
     private void gehituActionListener(ActionListener listener) {
@@ -51,13 +56,17 @@ public class Controller implements ActionListener{
         //Dialog textual reports
         view.jRadioButtonSoldProducts.addActionListener(listener);
         view.jRadioButtonGarageOcuppation.addActionListener(listener);
-        view.jRadioButtonRentedHours.addActionListener(listener);
-        view.jRadioButtonIncomeByClient.addActionListener(listener);
+        view.jRadioButtonProductsByMonth.addActionListener(listener);
+        view.jRadioButtonTotalRentedHours.addActionListener(listener);
+        view.jRadioButtonEmployeeByPosition.addActionListener(listener);
         //Graphic reports
         view.jRadioButtonReport1.addActionListener(listener);
         view.jRadioButtonReport2.addActionListener(listener);
         view.jRadioButtonReport3.addActionListener(listener);
         view.jRadioButtonReport4.addActionListener(listener);
+        //Combo box
+        view.jComboBoxHilabetea.addActionListener(listener);
+        view.jComboBoxEmployeePos.addActionListener(listener);
     }
     
     public void actionPerformed(ActionEvent e) {
@@ -75,21 +84,45 @@ public class Controller implements ActionListener{
                 view.jDialogTextualReports.setSize(700,600);
                 view.jDialogTextualReports.setResizable(false);
                 view.jDialogTextualReports.setVisible(true);
+                view.jComboBoxHilabetea.setEnabled(false);
+                view.jComboBoxEmployeePos.setEnabled(false);
                 break;
             case "Most sold products":
                 view.jTableReports.setModel(new SoldProductsTableModel(Model.mostSoldProductsArray()));
+                view.jComboBoxHilabetea.setEnabled(false);
+                view.jComboBoxEmployeePos.setEnabled(false);
                 //view.jTextAreaTextualReports.setText("Most Sold Products");
                 break;
             case "Garage occupation":
-                view.jTableReports.setModel(new GarageOccupationTableModel(Model.garageOccupationArray()));
-                //view.jTextAreaTextualReports.setText("Garage Occupation");
+                view.jTableReports.setModel(new GarageOccupationTableModel(Model.garageOccupationArray(view.jComboBoxHilabetea.getSelectedItem().toString())));
+                view.jComboBoxHilabetea.setEnabled(true);   
+                 view.jComboBoxEmployeePos.setEnabled(false);
                 break;
-            case "Rented hours by client":
-                view.jTableReports.setModel(new RentedHoursTableModel(Model.rentedHoursByClientArray()));
-                //view.jTextAreaTextualReports.setText("Rented Hours");
+            case "comboBoxChanged":
+                if(view.jRadioButtonGarageOcuppation.isSelected()){
+                    view.jTableReports.setModel(new GarageOccupationTableModel(Model.garageOccupationArray(view.jComboBoxHilabetea.getSelectedItem().toString())));
+                }else if(view.jRadioButtonProductsByMonth.isSelected()){
+                   view.jTableReports.setModel(new MostSoldProductsByMonthTableModel(Model.mostSoldProductsByMonth(view.jComboBoxHilabetea.getSelectedItem().toString())));
+                }
                 break;
-            case "Income by client":
-                //view.jTextAreaTextualReports.setText("Income by client");
+            case "Most sold products by month":
+                view.jComboBoxHilabetea.setEnabled(true);
+                 view.jComboBoxEmployeePos.setEnabled(false);
+                view.jTableReports.setModel(new MostSoldProductsByMonthTableModel(Model.mostSoldProductsByMonth(view.jComboBoxHilabetea.getSelectedItem().toString())));
+                break;
+            
+            case "Total rented hours by client":
+                view.jComboBoxHilabetea.setEnabled(false);
+                 view.jComboBoxEmployeePos.setEnabled(false);
+                view.jTableReports.setModel(new TotalRentedHoursByClientTableModel(Model.totalRentedHoursByClient()));
+                break;
+            case "Employees by position":
+                view.jComboBoxHilabetea.setEnabled(false);
+                view.jComboBoxEmployeePos.setEnabled(true);
+                view.jTableReports.setModel(new EmployeesByPositionTableModel(Model.employeesByPosition(view.jComboBoxEmployeePos.getSelectedItem().toString())));
+                break;
+            case "positionComboBox":
+                 view.jTableReports.setModel(new EmployeesByPositionTableModel(Model.employeesByPosition(view.jComboBoxEmployeePos.getSelectedItem().toString())));
                 break;
             case "SAVE":
                 //Save textual report
