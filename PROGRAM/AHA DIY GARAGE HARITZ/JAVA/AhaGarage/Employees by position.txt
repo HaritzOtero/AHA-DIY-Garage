@@ -1,0 +1,5 @@
+EMPLOYEE ID	NAME	SURNAME	AGE	SALARY	
+======================================================
+ 1 Haritz Otero 19 1300
+ 2 Alain Basterra 53 1400
+ 3 Aitzol Soto 34 1450

@@ -1,0 +1,4 @@
+CLIENT ID	NAME	RENTED HOURS	INCOME	
+======================================================
+ 3 haritz 3 60
+ 1 aitzol 2 40
