@@ -16,6 +16,14 @@ public class Renting {
     private int hours;
     private Garage garage;
     private LocalDate date;
+    
+    public Renting(LocalDate date,int price){
+        this.date = date;
+        this.price = price;
+        this.client = null;
+        this.garage = null;
+        this.hours = 0;
+    }
 
     public Renting(Client client,int hours){
         this.client = client;
@@ -31,6 +39,8 @@ public class Renting {
         this.garage = garage;
         this.date = date;
     }
+
+  
 
     public Client getClient() {
         return client;

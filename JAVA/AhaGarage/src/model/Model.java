@@ -6,6 +6,11 @@ package model;
 
 import java.awt.Color;
 import java.awt.Graphics;
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -15,6 +20,7 @@ import java.sql.Statement;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import javax.swing.JDialog;
+import javax.swing.JTable;
 
 /**
  *
@@ -58,28 +64,6 @@ public class Model {
             System.out.println(e.getMessage());
         }
         return conn;
-    }
-    
-    public static void selectEmployees() {
-        String sql = "SELECT employee_id, name, surname,position,salary FROM employee";
-        int guztira = 0;
-
-        
-        try (Connection conn = Model.connect();
-                Statement stmt = conn.createStatement();
-                ResultSet rs = stmt.executeQuery(sql)) {
-
-            System.out.printf("%10s %10s %10s %10s %10s\n","ID","NAME","SURNAME","POSITION","SALARY");
-            System.out.printf("===========================================================");
-            // loop through the result set
-            while (rs.next()) {
-                //Employee e1 = new Employee(rs.getInt("employee_id"),rs.getString("name"),rs.getString("surname"),rs.getString("position"),rs.getInt("salary"));
-//                System.out.printf("\n%10d %10s %10s %10s %10d",e1.getId(),e1.getName(),e1.getSurname(),e1.getPosition(),e1.getSalary());
-            }
-            System.out.println("");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
     }
     
     
@@ -212,6 +196,38 @@ public class Model {
         }
         return null;
     }
+    
+    public static void saveReportTxt(JTable taula,String fileName) {
+        BufferedReader inputStream = null;
+        PrintWriter outputStream = null;
+        String lerroa = "";
+        try {
+            outputStream = new PrintWriter(new FileWriter(fileName + ".txt"));
+            for (int i = 0; i < taula.getColumnCount(); i++) {
+                lerroa = lerroa + taula.getColumnName(i) + "\t";
+            }
+            outputStream.print(lerroa);
+            lerroa = "";
+            outputStream.println("");
+            outputStream.println("======================================================");
+            for (int i = 0; i < taula.getRowCount(); i++) {
+                for (int j = 0; j < taula.getColumnCount(); j++) {
+                    lerroa = lerroa + " " + taula.getValueAt(i, j).toString();
+                }
+                outputStream.println(lerroa);
+                lerroa = "";
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println(e);
+        } catch (IOException e) {
+            System.out.println(e);
+        } finally {
+            if (outputStream != null) {
+                outputStream.close();
+            }
+        }
+    }
+    
     
     public void drawGraphicBase(Graphics g){
         g.clearRect(40, 100, 300, 300);

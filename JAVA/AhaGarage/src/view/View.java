@@ -45,13 +45,14 @@ public class View extends javax.swing.JFrame {
         jRadioButtonGarageOcuppation = new javax.swing.JRadioButton();
         jRadioButtonProductsByMonth = new javax.swing.JRadioButton();
         jRadioButtonTotalRentedHours = new javax.swing.JRadioButton();
-        jButton1 = new javax.swing.JButton();
+        jButtonSave = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTableReports = new javax.swing.JTable();
         jComboBoxHilabetea = new javax.swing.JComboBox<>();
         jRadioButtonEmployeeByPosition = new javax.swing.JRadioButton();
         jComboBoxEmployeePos = new javax.swing.JComboBox<>();
+        jRadioButtonTotalIncomeByMonth = new javax.swing.JRadioButton();
         jDialogGraphicReports = new javax.swing.JDialog();
         jLabel = new javax.swing.JLabel();
         jRadioButtonReport1 = new javax.swing.JRadioButton();
@@ -74,8 +75,8 @@ public class View extends javax.swing.JFrame {
 
         jRadioButtonTotalRentedHours.setText("Total rented hours by client");
 
-        jButton1.setBackground(new java.awt.Color(225, 225, 225));
-        jButton1.setText("SAVE");
+        jButtonSave.setBackground(new java.awt.Color(225, 225, 225));
+        jButtonSave.setText("SAVE");
 
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setText("REPORTS");
@@ -89,6 +90,8 @@ public class View extends javax.swing.JFrame {
 
         jComboBoxEmployeePos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Mechanic", "Cleaner", "Security", "Boss" }));
         jComboBoxEmployeePos.setActionCommand("positionComboBox");
+
+        jRadioButtonTotalIncomeByMonth.setText("Total income by month");
 
         javax.swing.GroupLayout jDialogTextualReportsLayout = new javax.swing.GroupLayout(jDialogTextualReports.getContentPane());
         jDialogTextualReports.getContentPane().setLayout(jDialogTextualReportsLayout);
@@ -109,9 +112,10 @@ public class View extends javax.swing.JFrame {
                         .addComponent(jRadioButtonProductsByMonth)
                         .addComponent(jRadioButtonGarageOcuppation)
                         .addComponent(jRadioButtonSoldProducts)
-                        .addComponent(jButton1, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addComponent(jButtonSave, javax.swing.GroupLayout.Alignment.TRAILING))
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jRadioButtonEmployeeByPosition))
+                    .addComponent(jRadioButtonEmployeeByPosition)
+                    .addComponent(jRadioButtonTotalIncomeByMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22))
             .addGroup(jDialogTextualReportsLayout.createSequentialGroup()
                 .addGap(195, 195, 195)
@@ -140,16 +144,18 @@ public class View extends javax.swing.JFrame {
                         .addGap(37, 37, 37))
                     .addGroup(jDialogTextualReportsLayout.createSequentialGroup()
                         .addComponent(jRadioButtonSoldProducts)
-                        .addGap(35, 35, 35)
+                        .addGap(32, 32, 32)
                         .addComponent(jRadioButtonGarageOcuppation)
-                        .addGap(31, 31, 31)
+                        .addGap(34, 34, 34)
                         .addComponent(jRadioButtonProductsByMonth)
                         .addGap(36, 36, 36)
                         .addComponent(jRadioButtonTotalRentedHours)
-                        .addGap(38, 38, 38)
+                        .addGap(32, 32, 32)
                         .addComponent(jRadioButtonEmployeeByPosition)
+                        .addGap(34, 34, 34)
+                        .addComponent(jRadioButtonTotalIncomeByMonth)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(jButtonSave, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(28, 28, 28))))
         );
 
@@ -276,8 +282,8 @@ public class View extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     public javax.swing.JButton jButtonGraphicReports;
+    public javax.swing.JButton jButtonSave;
     public javax.swing.JButton jButtonTextualReports;
     public javax.swing.JComboBox<String> jComboBoxEmployeePos;
     public javax.swing.JComboBox<String> jComboBoxHilabetea;
@@ -295,6 +301,7 @@ public class View extends javax.swing.JFrame {
     public javax.swing.JRadioButton jRadioButtonReport3;
     public javax.swing.JRadioButton jRadioButtonReport4;
     public javax.swing.JRadioButton jRadioButtonSoldProducts;
+    public javax.swing.JRadioButton jRadioButtonTotalIncomeByMonth;
     public javax.swing.JRadioButton jRadioButtonTotalRentedHours;
     private javax.swing.JScrollPane jScrollPane3;
     public javax.swing.JTable jTableReports;
