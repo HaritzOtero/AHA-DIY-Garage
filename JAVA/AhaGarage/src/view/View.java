@@ -215,6 +215,11 @@ public class View extends javax.swing.JFrame {
 
         jButtonTextualReports.setBackground(new java.awt.Color(225, 225, 225));
         jButtonTextualReports.setText("TEXTUAL REPORTS");
+        jButtonTextualReports.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonTextualReportsActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -245,6 +250,10 @@ public class View extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButtonTextualReportsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonTextualReportsActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButtonTextualReportsActionPerformed
 
     /**
      * @param args the command line arguments

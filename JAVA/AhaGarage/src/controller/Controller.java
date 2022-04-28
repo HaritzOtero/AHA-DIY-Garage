@@ -14,6 +14,7 @@ import model.GarageOccupationTableModel;
 import model.Model;
 import model.MostSoldProductsByMonthTableModel;
 import model.SoldProductsTableModel;
+import model.TotalIncomeByMonthTableModel;
 import model.TotalRentedHoursByClientTableModel;
 import view.View;
 
@@ -138,7 +139,7 @@ public class Controller implements ActionListener {
                 view.jTableReports.setModel(new EmployeesByPositionTableModel(Model.employeesByPosition(view.jComboBoxEmployeePos.getSelectedItem().toString())));
                 break;
             case "Total income by month":
-
+                view.jTableReports.setModel(new TotalIncomeByMonthTableModel(Model.incomeFromSelling(2022),Model.incomeFromRenting(2022)));
                 break;
             case "SAVE":
                 String reportName = "";
@@ -152,6 +153,8 @@ public class Controller implements ActionListener {
                     reportName = "Total rented hours";
                 }else if(view.jRadioButtonEmployeeByPosition.isSelected()){
                     reportName = "Employees by position";
+                }else if(view.jRadioButtonTotalIncomeByMonth.isSelected()){
+                    reportName = "Total income by month";
                 }
                 Model.saveReportTxt(view.jTableReports, reportName);
                 break;

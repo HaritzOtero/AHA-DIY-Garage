@@ -1,0 +1,8 @@
+ID	NAME	AMOUNT SOLD	TOTAL INCOME	
+======================================================
+ 6 Maddox Detail - Tire Detailer  4 39.0
+ 5 QM cleaner Upholstery cleaner kit 3 59.0
+ 2 Antifreeze liquid 50% organic G-12 pink 2 21.0
+ 4 Rain-X 14126 Rain-Rain Washer protection -5°C, Manufactured in Spain, Rain Repellent, Windshield, 5 liters 2 17.0
+ 1 Total Quartz Ineo ECS 5W30 5L Car Oil 1 9.0
+ 3 Brake Kit, Disc Brake Box, Pad and Disc Kit 1 67.0

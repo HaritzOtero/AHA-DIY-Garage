@@ -1,0 +1,15 @@
+MONTH	RENTING	SELLING	TOTAL	
+======================================================
+ January 40 19.98 59
+ February 360 30.49 390
+ March 100 194.75 294
+ April 100 19.99 119
+ May 120 76.8 196
+ June 40 9.45 49
+ July 80 20.49 100
+ August 40 39.94 79
+ September 40 87.34 127
+ October 100 17.0 117
+ November 40 67.35 107
+ December 20 75.85 95
+ Total 0 0.0 0

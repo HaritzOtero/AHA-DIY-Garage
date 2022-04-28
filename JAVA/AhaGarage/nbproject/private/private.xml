@@ -7,12 +7,9 @@
             <file>file:/C:/Users/soto.aitzol/Desktop/program21-22/AhaGarage/src/model/Model.java</file>
             <file>file:/C:/Users/soto.aitzol/Desktop/program21-22/AhaGarage/src/ProgramaNagusia.java</file>
             <file>file:/C:/Users/soto.aitzol/Desktop/program21-22/AhaGarage/src/controller/Controller.java</file>
-            <file>file:/C:/Users/soto.aitzol/Desktop/program21-22/AhaGarage/src/model/Selling.java</file>
-            <file>file:/C:/Users/soto.aitzol/Desktop/program21-22/AhaGarage/src/model/Client.java</file>
-            <file>file:/C:/Users/soto.aitzol/Desktop/program21-22/AhaGarage/src/model/Employee.java</file>
+            <file>file:/C:/Users/soto.aitzol/Desktop/program21-22/AhaGarage/src/model/SoldProductsTableModel.java</file>
+            <file>file:/C:/Users/soto.aitzol/Desktop/program21-22/AhaGarage/src/model/TotalRentedHoursByClientTableModel.java</file>
             <file>file:/C:/Users/soto.aitzol/Desktop/program21-22/AhaGarage/src/view/View.java</file>
-            <file>file:/C:/Users/soto.aitzol/Desktop/program21-22/AhaGarage/src/model/EmployeesByPositionTableModel.java</file>
-            <file>file:/C:/Users/soto.aitzol/Desktop/program21-22/AhaGarage/src/model/MostSoldProductsByMonthTableModel.java</file>
         </group>
     </open-files>
 </project-private>

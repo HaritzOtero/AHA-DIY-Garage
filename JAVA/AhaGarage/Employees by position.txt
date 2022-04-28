@@ -1,5 +1,5 @@
 EMPLOYEE ID	NAME	SURNAME	AGE	SALARY	
 ======================================================
- 1 Haritz Otero 19 1300
- 2 Alain Basterra 53 1400
- 3 Aitzol Soto 34 1450
+ 5 Idoia Madariaga 36 1550
+ 6 Idoia Mugartegi 28 1800
+ 7 Gorka  Elortza 34 1840

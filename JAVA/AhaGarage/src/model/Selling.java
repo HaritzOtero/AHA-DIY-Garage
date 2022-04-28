@@ -18,6 +18,15 @@ public class Selling {
     private int productAmount;
     private LocalDate date;
     
+    public Selling(LocalDate date,double totalCost){
+        this.date = date;
+        this.totalCost = totalCost;
+        this.productAmount = 0;
+        this.id = 1;
+        this.client = null;
+        this.product = null;
+    }
+    
     public Selling(Product product,int productAmount, double totalCost){
         this.id = 0;
         this.client = null;
@@ -82,6 +91,11 @@ public class Selling {
 
     public void setDate(LocalDate date) {
         this.date = date;
+    }
+
+    @Override
+    public String toString() {
+        return "Selling{" + "id=" + id + ", client=" + client + ", product=" + product + ", totalCost=" + totalCost + ", productAmount=" + productAmount + ", date=" + date + '}';
     }
     
     
