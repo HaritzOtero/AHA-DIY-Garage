@@ -27,8 +27,8 @@ label {
     session_start();
 	$userID = $_SESSION['userID'];
 	$session = $_SESSION['session'];
-	include("../Connect.php");
-	include("../FrontPage/nav-bar.php");
+	include("../include/Connect.php");
+	include("../include/nav-bar.php");
 	$link=KonektatuDatuBasera();
 
 	$Tweek = strftime('%V');

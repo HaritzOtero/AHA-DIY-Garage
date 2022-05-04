@@ -1,7 +1,7 @@
 <?php
     session_start();
 	$session = $_SESSION['session'];
-    include("../Connect.php");
+    include("../include/Connect.php");
     $link=KonektatuDatuBasera();
     mysqli_query($link,"delete from garage_1 where buy = 0 and session = $session");
     session_unset();

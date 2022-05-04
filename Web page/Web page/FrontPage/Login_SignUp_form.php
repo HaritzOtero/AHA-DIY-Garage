@@ -47,7 +47,7 @@
 <body>
 <?php
     session_start();
-include("nav-bar.php");
+    include("../include/nav-bar.php");
 ?>
 
 

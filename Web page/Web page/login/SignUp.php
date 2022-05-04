@@ -1,5 +1,5 @@
 <?php
-			include("../Connect.php");
+			include("../include/Connect.php");
 
             $name=$_POST["name"];
             $surname=$_POST["surname"];

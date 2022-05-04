@@ -24,7 +24,7 @@
 <body>
 <?php
     session_start();
-    include("./include/nav-bar.php");
+    include("../include/nav-bar.php");
 ?>
 
 

@@ -1,5 +1,5 @@
 <?php
-			include("../Connect.php");
+			include("../include/Connect.php");
 
             $emailOrID=$_POST["email"];
             $password=$_POST["password"];

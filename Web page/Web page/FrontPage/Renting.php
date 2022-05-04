@@ -24,7 +24,7 @@
 
 <?php
 
-include("nav-bar.php");
+include("../include/nav-bar.php");
 ?>
 
 

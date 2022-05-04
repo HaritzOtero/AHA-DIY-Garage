@@ -16,7 +16,7 @@
 <body>
 <?php
     session_start();
-include("nav-bar.php");
+    include("../include/nav-bar.php");
 ?>
 
     <div class="container" style="margin-top:30px">

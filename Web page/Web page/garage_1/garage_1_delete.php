@@ -11,7 +11,7 @@
 ?>
 
     <?php
-			include("../Connect.php");
+			include("../include/Connect.php");
             $hours = $_GET["selected_hour"];
 
 			

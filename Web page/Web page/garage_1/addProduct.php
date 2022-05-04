@@ -1,7 +1,7 @@
 <?php
     session_start();
     $userID = $_SESSION['userID'];
-	include("../Connect.php");
+	include("../include/Connect.php");
     
 $link=KonektatuDatuBasera();
 
