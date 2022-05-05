@@ -48,7 +48,7 @@ public class Controller implements ActionListener {
         group2.add(view.jRadioButtonReport1);
         group2.add(view.jRadioButtonReport2);
         group2.add(view.jRadioButtonReport3);
-        group2.add(view.jRadioButtonReport4);
+
 
     }
 
@@ -67,10 +67,10 @@ public class Controller implements ActionListener {
         view.jRadioButtonReport1.addActionListener(listener);
         view.jRadioButtonReport2.addActionListener(listener);
         view.jRadioButtonReport3.addActionListener(listener);
-        view.jRadioButtonReport4.addActionListener(listener);
         //Combo box
         view.jComboBoxHilabetea.addActionListener(listener);
         view.jComboBoxEmployeePos.addActionListener(listener);
+        view.jComboBoxYear.addActionListener(listener);
         //Save button
         view.jButtonSave.addActionListener(listener);
     }
@@ -80,7 +80,7 @@ public class Controller implements ActionListener {
         //listenerrak entzun dezakeen eragiketa bakoitzeko. Konponenteek 'actionCommand' propietatea daukate
         switch (actionCommand) {
             case "GRAPHIC REPORTS":
-                view.jDialogGraphicReports.setSize(600, 450);
+                view.jDialogGraphicReports.setSize(1060, 600);
                 view.jDialogGraphicReports.setResizable(false);
                 view.jDialogGraphicReports.setVisible(true);
                 gGraphics = view.jDialogGraphicReports.getGraphics();
@@ -92,6 +92,7 @@ public class Controller implements ActionListener {
                 view.jDialogTextualReports.setVisible(true);
                 view.jComboBoxHilabetea.setEnabled(false);
                 view.jComboBoxEmployeePos.setEnabled(false);
+                view.jComboBoxYear.setEnabled(false);
 
                 group1 = new ButtonGroup();
                 group1.add(view.jRadioButtonSoldProducts);
@@ -105,12 +106,14 @@ public class Controller implements ActionListener {
                 view.jTableReports.setModel(new SoldProductsTableModel(Model.mostSoldProductsArray()));
                 view.jComboBoxHilabetea.setEnabled(false);
                 view.jComboBoxEmployeePos.setEnabled(false);
+                view.jComboBoxYear.setEnabled(false);
                 //view.jTextAreaTextualReports.setText("Most Sold Products");
                 break;
             case "Garage occupation":
                 view.jTableReports.setModel(new GarageOccupationTableModel(Model.garageOccupationArray(view.jComboBoxHilabetea.getSelectedItem().toString())));
                 view.jComboBoxHilabetea.setEnabled(true);
                 view.jComboBoxEmployeePos.setEnabled(false);
+                view.jComboBoxYear.setEnabled(false);
                 break;
             case "comboBoxChanged":
                 if (view.jRadioButtonGarageOcuppation.isSelected()) {
@@ -122,62 +125,66 @@ public class Controller implements ActionListener {
             case "Most sold products by month":
                 view.jComboBoxHilabetea.setEnabled(true);
                 view.jComboBoxEmployeePos.setEnabled(false);
+                view.jComboBoxYear.setEnabled(false);
                 view.jTableReports.setModel(new MostSoldProductsByMonthTableModel(Model.mostSoldProductsByMonth(view.jComboBoxHilabetea.getSelectedItem().toString())));
                 break;
-
             case "Total rented hours by client":
                 view.jComboBoxHilabetea.setEnabled(false);
                 view.jComboBoxEmployeePos.setEnabled(false);
+                view.jComboBoxYear.setEnabled(false);
                 view.jTableReports.setModel(new TotalRentedHoursByClientTableModel(Model.totalRentedHoursByClient()));
                 break;
             case "Employees by position":
                 view.jComboBoxHilabetea.setEnabled(false);
                 view.jComboBoxEmployeePos.setEnabled(true);
+                view.jComboBoxYear.setEnabled(false);
                 view.jTableReports.setModel(new EmployeesByPositionTableModel(Model.employeesByPosition(view.jComboBoxEmployeePos.getSelectedItem().toString())));
                 break;
             case "positionComboBox":
                 view.jTableReports.setModel(new EmployeesByPositionTableModel(Model.employeesByPosition(view.jComboBoxEmployeePos.getSelectedItem().toString())));
                 break;
             case "Total income by month":
-                view.jTableReports.setModel(new TotalIncomeByMonthTableModel(Model.incomeFromSelling(2022),Model.incomeFromRenting(2022)));
+                view.jComboBoxHilabetea.setEnabled(false);
+                view.jComboBoxEmployeePos.setEnabled(false);
+                view.jComboBoxYear.setEnabled(true);
+                int year = Integer.parseInt(view.jComboBoxYear.getSelectedItem().toString());
+                view.jTableReports.setModel(new TotalIncomeByMonthTableModel(Model.incomeFromSelling(year), Model.incomeFromRenting(year),Model.calculateTotalSelling(Model.incomeFromSelling(year)),Model.calculateTotalRenting(Model.incomeFromRenting(year))));
+                break;
+            case "yearComboBox":
+                year = Integer.parseInt(view.jComboBoxYear.getSelectedItem().toString());
+                view.jTableReports.setModel(new TotalIncomeByMonthTableModel(Model.incomeFromSelling(year), Model.incomeFromRenting(year),Model.calculateTotalSelling(Model.incomeFromSelling(year)),Model.calculateTotalRenting(Model.incomeFromRenting(year))));
                 break;
             case "SAVE":
                 String reportName = "";
-                if(view.jRadioButtonSoldProducts.isSelected()){
+
+                if (view.jRadioButtonSoldProducts.isSelected()) {
                     reportName = "Most sold products";
-                }else if(view.jRadioButtonGarageOcuppation.isSelected()){
+                } else if (view.jRadioButtonGarageOcuppation.isSelected()) {
                     reportName = "Garage occupation";
-                }else if(view.jRadioButtonProductsByMonth.isSelected()){
+                } else if (view.jRadioButtonProductsByMonth.isSelected()) {
                     reportName = "Most sold products by month";
-                }else if(view.jRadioButtonTotalRentedHours.isSelected()){
+                } else if (view.jRadioButtonTotalRentedHours.isSelected()) {
                     reportName = "Total rented hours";
-                }else if(view.jRadioButtonEmployeeByPosition.isSelected()){
+                } else if (view.jRadioButtonEmployeeByPosition.isSelected()) {
                     reportName = "Employees by position";
-                }else if(view.jRadioButtonTotalIncomeByMonth.isSelected()){
+                } else if (view.jRadioButtonTotalIncomeByMonth.isSelected()) {
                     reportName = "Total income by month";
                 }
+
                 Model.saveReportTxt(view.jTableReports, reportName);
+
                 break;
-            case "Report 1":
+            case "Total income":
                 //Draw report 1
-                //view.jDialogGraphicReports.repaint();
-                model.drawGraphicBase(gGraphics);
-                model.drawReport1(gGraphics);
+                model.drawReport1(gGraphics,Model.incomeFromSelling(2022),Model.incomeFromRenting(2022));
                 break;
-            case "Report 2":
+            case "Garage occupation by month":
                 //Draw report 2
-                model.drawGraphicBase(gGraphics);
                 model.drawReport2(gGraphics);
                 break;
-            case "Report 3":
+            case "Products graphic":
                 //Draw report 3
-                model.drawGraphicBase(gGraphics);
-                model.drawReport3(gGraphics);
-                break;
-            case "Report 4":
-                //Draw report 4
-                model.drawGraphicBase(gGraphics);
-                model.drawReport4(gGraphics);
+                model.drawReport3(gGraphics,Model.mostSoldProductsArray());
                 break;
         }
     }

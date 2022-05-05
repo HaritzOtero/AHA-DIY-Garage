@@ -54,7 +54,6 @@ public class Model {
             }
         }
     }*/
-    
     private static Connection connect() {
         // SQLite connection string
         String url = "jdbc:mysql://localhost:3306/aha_diy_garage";
@@ -68,14 +67,14 @@ public class Model {
         }
         return conn;
     }
-    
+
     public static void garageOccupation(String month) {
         String sql = "select date,r.client_id,c.name,garage_id, rented_hours  from renting r,client c where  c.client_id = r.client_id and monthname(`date`) = ? group by date";
-        
+
         try ( Connection conn = Model.connect();  PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, month);
             ResultSet rs = pstmt.executeQuery();
-            
+
             System.out.printf("%15s %15s %15s %15s %15s %15s\n", "DATE", "CLIENT_ID", "NAME", "GARAGE_ID", "RENTED HOURS", "INCOME");
             System.out.printf("====================================================================================================================");
             // loop through the result set
@@ -90,7 +89,7 @@ public class Model {
             System.out.println(e.getMessage());
         }
     }
-    
+
     public static ArrayList<Selling> mostSoldProductsArray() {
         String sql = "select p.product_id, name, count(s.selling_id),(count(s.selling_id) * price) from products p left join selling s on s.product_id  = p.product_id group by product_id order by count(s.selling_id) desc";
         ArrayList<Selling> products = new ArrayList();
@@ -101,14 +100,14 @@ public class Model {
                 Selling s1 = new Selling(p1, rs.getInt("count(s.selling_id)"), rs.getInt("(count(s.selling_id) * price)"));
                 products.add(s1);
             }
-            
+
             return products;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
-    
+
     public static ArrayList<Renting> garageOccupationArray(String month) {
         String sql = "select date,r.client_id,c.name,garage_id, rented_hours ,sum(rented_hours)*20 as income  from renting r,client c where  c.client_id = r.client_id and monthname(`date`) = ? group by date";
         ArrayList<Renting> occupation = new ArrayList<>();
@@ -122,14 +121,14 @@ public class Model {
                 Garage g1 = new Garage(rs.getInt("garage_id"));
                 Renting r1 = new Renting(c1, rs.getInt("rented_hours") * 20, rs.getInt("rented_hours"), g1, rs.getDate("date").toLocalDate());
                 occupation.add(r1);
-            }            
+            }
             return occupation;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
-    
+
     public static ArrayList<Selling> mostSoldProductsByMonth(String month) {
         String sql = "select p.product_id ,name, count(s.product_id),count(s.product_id) * p.price  from selling s, products p where s.product_id = p.product_id and monthname(date) = ? group by s.product_id order by count(s.product_id)desc";
         ArrayList<Selling> products = new ArrayList<>();
@@ -143,14 +142,14 @@ public class Model {
                 Product p1 = new Product(rs.getInt("p.product_id"), rs.getString("name"));
                 Selling s1 = new Selling(p1, rs.getInt("count(s.product_id)"), rs.getDouble("count(s.product_id) * p.price"));
                 products.add(s1);
-            }            
+            }
             return products;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
-    
+
     public static ArrayList<Renting> totalRentedHoursByClient() {
         String sql = "SELECT r.client_id , name, sum(rented_hours) from  client c ,renting r where r.client_id = c.client_id group by r.client_id order by sum(rented_hours) desc ";
         ArrayList<Renting> occupation = new ArrayList<>();
@@ -163,14 +162,14 @@ public class Model {
                 Garage g1 = new Garage(0);
                 Renting r1 = new Renting(c1, rs.getInt("sum(rented_hours)") * 20, rs.getInt("sum(rented_hours)"), g1, null);
                 occupation.add(r1);
-            }            
+            }
             return occupation;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
-    
+
     public static ArrayList<Employee> employeesByPosition(String position) {
         String sql = "select employee_id,name,surname,age,salary  from employee e where position = ?";
         ArrayList<Employee> employees = new ArrayList<>();
@@ -182,21 +181,21 @@ public class Model {
             while (rs.next()) {
                 Employee e1 = new Employee(rs.getInt("employee_id"), rs.getString("name"), rs.getString("surname"), null, rs.getInt("age"), rs.getInt("salary"));
                 employees.add(e1);
-            }            
+            }
             return employees;
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
-    
+
     public static ArrayList<Selling> incomeFromSelling(int year) {
-        String sql = "select date,sum(total_cost) from selling s group by month(date)";
+        String sql = "select date,sum(total_cost) from selling s where year(date) = ? group by month(date)";
         ArrayList<Selling> incomeSelling = new ArrayList<>();
-        
+
         try ( Connection conn = Model.connect();  PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, year);
             ResultSet rs = pstmt.executeQuery();
-            
             for (int i = 1; i <= 12; i++) {
                 Selling s1 = new Selling(LocalDate.of(year, i, 01), 0);
                 incomeSelling.add(s1);
@@ -205,14 +204,14 @@ public class Model {
             while (rs.next()) {
                 LocalDate date = rs.getDate("date").toLocalDate();
                 Double total = rs.getDouble("sum(total_cost)");
-                total = Math.round(total*100.0)/100.0;
+                total = Math.round(total * 100.0) / 100.0;
                 Selling s1 = new Selling(LocalDate.of(year, date.getMonth(), 01), total);
                 for (int i = 0; i < 12; i++) {
-                    if (s1.getDate().getMonth() == incomeSelling.get(i).getDate().getMonth()) {
+                    if (s1.getDate().getYear() == year && s1.getDate().getMonth() == incomeSelling.get(i).getDate().getMonth()) {
                         incomeSelling.set(i, s1);
                     }
                 }
-            }            
+            }
             Selling total = new Selling(LocalDate.now(), 0);
             incomeSelling.add(total);
             return incomeSelling;
@@ -221,13 +220,14 @@ public class Model {
         }
         return null;
     }
-    
+
     public static ArrayList<Renting> incomeFromRenting(int year) {
-        String sql = "select date,sum(rented_hours) from renting r  group by month(date)";
+        String sql = "select date,sum(rented_hours) from renting r where year(date) = ? group by month(date)";
         ArrayList<Renting> incomeRenting = new ArrayList<>();
         try ( Connection conn = Model.connect();  PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1, year);
             ResultSet rs = pstmt.executeQuery();
-            
+
             for (int i = 1; i <= 12; i++) {
                 Renting r1 = new Renting(LocalDate.of(year, i, 01), 0);
                 incomeRenting.add(r1);
@@ -235,13 +235,13 @@ public class Model {
             // loop through the result set
             while (rs.next()) {
                 LocalDate date = rs.getDate("date").toLocalDate();
-                Renting r1 = new Renting(LocalDate.of(year, date.getMonth(), 01), rs.getInt("sum(rented_hours)")*20);
+                Renting r1 = new Renting(LocalDate.of(year, date.getMonth(), 01), rs.getInt("sum(rented_hours)") * 20);
                 for (int i = 0; i < 12; i++) {
-                    if (r1.getDate().getMonth() == incomeRenting.get(i).getDate().getMonth()) {
+                    if (r1.getDate().getYear() == year && r1.getDate().getMonth() == incomeRenting.get(i).getDate().getMonth()) {
                         incomeRenting.set(i, r1);
                     }
                 }
-            }      
+            }
             Renting total = new Renting(LocalDate.now(), 0);
             incomeRenting.add(total);
             return incomeRenting;
@@ -250,7 +250,54 @@ public class Model {
         }
         return null;
     }
-    
+
+    public static double calculateTotalSelling(ArrayList<Selling> incomeFromSelling) {
+        double totalIncomeSelling = 0;
+        for (int i = 0; i < incomeFromSelling.size(); i++) {
+            totalIncomeSelling += incomeFromSelling.get(i).getTotalCost();
+        }
+        totalIncomeSelling = Math.round(totalIncomeSelling * 100) / 100;
+        return totalIncomeSelling;
+    }
+
+    public static double calculateTotalRenting(ArrayList<Renting> incomeFromRenting) {
+        double totalIncomeRenting = 0;
+        for (int i = 0; i < incomeFromRenting.size(); i++) {
+            totalIncomeRenting += incomeFromRenting.get(i).getPrice();
+        }
+        totalIncomeRenting = Math.round(totalIncomeRenting * 100) / 100;
+        return totalIncomeRenting;
+    }
+
+    public static ArrayList<Renting> garageOccupationByMonth(int year) {
+        String sql = "select date,sum(rented_hours),garage_id from renting r group by month(`date`)";
+        ArrayList<Renting> garageOccupation = new ArrayList<>();
+        try ( Connection conn = Model.connect();  PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            ResultSet rs = pstmt.executeQuery();
+
+            for (int i = 1; i <= 12; i++) {
+                Renting r1 = new Renting(LocalDate.of(year, i, 01), 0);
+                garageOccupation.add(r1);
+            }
+            // loop through the result set
+            while (rs.next()) {
+                LocalDate date = rs.getDate("date").toLocalDate();
+                Garage g1 = new Garage(rs.getInt("garage_id"));
+                Renting r1 = new Renting(LocalDate.of(year, date.getMonth(), 01), rs.getInt("sum(rented_hours)"),g1);
+                for (int i = 0; i < 12; i++) {
+                    if (r1.getDate().getYear() == year && r1.getDate().getMonth() == garageOccupation.get(i).getDate().getMonth()) {
+                        garageOccupation.set(i, r1);
+                    }
+                }
+            }
+            
+            return garageOccupation;
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
     public static void saveReportTxt(JTable taula, String fileName) {
         BufferedReader inputStream = null;
         PrintWriter outputStream = null;
@@ -261,15 +308,16 @@ public class Model {
                 lerroa = lerroa + taula.getColumnName(i) + "\t";
             }
             outputStream.print(lerroa);
-            lerroa = "";
             outputStream.println("");
             outputStream.println("======================================================");
             for (int i = 0; i < taula.getRowCount(); i++) {
+                lerroa = "";
                 for (int j = 0; j < taula.getColumnCount(); j++) {
-                    lerroa = lerroa + " " + taula.getValueAt(i, j).toString();
+                    //lerroa = lerroa + " " + taula.getValueAt(i, j).toString();
+                    outputStream.print(taula.getValueAt(i, j).toString() + " ");
                 }
                 outputStream.println(lerroa);
-                lerroa = "";
+
             }
         } catch (FileNotFoundException e) {
             System.out.println(e);
@@ -281,56 +329,138 @@ public class Model {
             }
         }
     }
-    
-    public void drawGraphicBase(Graphics g) {
-        g.clearRect(40, 100, 300, 300);
+
+    public void drawGraphicBase(Graphics g, int y2) {
+        g.clearRect(40, 100, 800, 800);
         //g.drawRect(40, 100, 300, 300);
         g.setColor(Color.BLACK);
-        g.drawLine(50, 150, 50, 350);
-        g.drawLine(50, 350, 300, 350);
+        g.drawLine(50, 200, 50, 400);
+        g.drawLine(50, 400, y2, 400);
     }
-    
-    public void drawReport1(Graphics g) {
+
+    public void drawReport1(Graphics g, ArrayList<Selling> incomeFromSelling, ArrayList<Renting> incomeFromRenting) {
+        g.setColor(Color.BLACK);
+        drawGraphicBase(g, 825);
+        //Months
+        String[] months = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
+
+        int x = 0;
+
+        for (int i = 0; i < months.length; i++) {
+            x += 65;
+            g.drawString(months[i], x, 415);
+        }
+        //Selling income
+        g.setColor(Color.BLUE);
+        x = 50;
+        int widthOval = 8;
+        int heightOval = 8;
+        int yBerria = 0;
+        int yZaharra = 0;
+        for (int i = 0; i < months.length; i++) {
+            yZaharra = yBerria;
+            yBerria = (int) incomeFromSelling.get(i).getTotalCost();
+            if (i == 0) {
+                x += 20;
+                g.drawLine(x - 20, 400, x, 400 - yBerria);
+                //g.drawString(String.valueOf(yBerria), x, (400 - yBerria) -10);
+                g.fillOval(x - 2, 400 - yBerria - 2, widthOval, heightOval);
+
+
+            } else {
+                x += 65;
+                g.drawLine(x - 65, 400 - yZaharra, x, 400 - yBerria);
+                //g.drawString(String.valueOf(yBerria), x, (400 - yBerria) -10);
+                g.fillOval(x - 2, 400 - yBerria - 2, widthOval, heightOval);
+
+            }
+        }
+        //Renting income
         g.setColor(Color.MAGENTA);
-        //g.drawLine(70, 350, 70, 200);
-        //g.drawLine(90, 350,90, 250);
-        //g.drawLine(110, 350,110, 320);
-        //g.drawLine(130, 350,130, 225);
-        //g.drawLine(150, 350,150, 235);
-        g.fillRect(70, 350 - 25, 10, 25);
-        g.fillRect(100, 350 - 45, 10, 45);
-        g.fillRect(130, 350 - 100, 10, 100);
-        g.fillRect(160, 350 - 60, 10, 60);
-        g.fillRect(190, 350 - 40, 10, 40);
+        x = 50;
+        yBerria = 0;
+        yZaharra = 0;
+        for (int i = 0; i < months.length; i++) {
+            yZaharra = yBerria;
+            yBerria = (int) incomeFromRenting.get(i).getPrice() / 10;
+            if (i == 0) {
+                x += 20;
+                g.drawLine(x - 20, 400, x, 400 - yBerria);
+                //g.drawString(String.valueOf(yBerria), x, (400 - yBerria) -10);
+                g.fillOval(x - 2, 400 - yBerria - 2, widthOval, heightOval);
+
+
+            } else {
+                x += 65;
+                g.drawLine(x - 65, 400 - yZaharra, x, 400 - yBerria);
+                //g.drawString(String.valueOf(yBerria), x, (400 - yBerria) -10);
+                g.fillOval(x - 2, 400 - yBerria - 2, widthOval, heightOval);
+
+            }
+        }
+        
+        //Rect
+        g.setColor(Color.BLUE);
+        g.fillRect(50, 450, 20, 20);
+        g.drawString("TOTAL INCOME FROM SELLING", 75, 465);
+        g.setColor(Color.MAGENTA);
+        g.fillRect(50, 500, 20, 20);
+        g.drawString("TOTAL INCOME FROM RENTING", 75, 515);
     }
-    
+
     public void drawReport2(Graphics g) {
-        g.setColor(Color.GREEN);
-        g.fillRect(70, 350 - 25, 10, 25);
-        g.fillRect(100, 350 - 45, 10, 45);
-        g.fillRect(130, 350 - 100, 10, 100);
-        g.fillRect(160, 350 - 60, 10, 60);
-        g.fillRect(190, 350 - 40, 10, 40);
+        g.setColor(Color.BLACK);
+        drawGraphicBase(g, 825);
+        ArrayList<Renting> garageOccupation = Model.garageOccupationByMonth(2022);
+        //Months
+        String[] months = {"JAN", "FEB", "MAR", "APR", "MAY", "JUN", "JUL", "AUG", "SEP", "OCT", "NOV", "DEC"};
+        int x = 0;
+        for (int i = 0; i < months.length; i++) {
+            x += 65;
+            g.drawString(months[i], x, 425);
+        }
+        
+        g.setColor(Color.MAGENTA);
+        x = 70;
+        for (int i = 0; i < garageOccupation.size(); i++) {
+            int y = garageOccupation.get(i).getHours();
+            
+            x += 65;
+            g.fillRect(x - 65,400 - y, 20, y);
+        }
     }
-    
-    public void drawReport3(Graphics g) {
-        g.setColor(Color.ORANGE);
-        g.fillRect(70, 350 - 25, 10, 25);
-        g.fillRect(100, 350 - 45, 10, 45);
-        g.fillRect(130, 350 - 100, 10, 100);
-        g.fillRect(160, 350 - 60, 10, 60);
-        g.fillRect(190, 350 - 40, 10, 40);
+
+    public void drawReport3(Graphics g, ArrayList<Selling> products) {
+        Color[] colors = {Color.RED, Color.BLUE, Color.GREEN, Color.PINK, Color.ORANGE, Color.YELLOW, Color.GRAY, Color.MAGENTA, Color.CYAN};
+        g.clearRect(40, 100, 800, 800);
+        //Total sold
+        int total = 0;
+        for (int i = 0; i < products.size(); i++) {
+            total += products.get(i).getProductAmount();
+        }
+        //Product names
+        int yPos = 150;
+        for (int i = 0; i < products.size(); i++) {
+            g.setColor(colors[i]);
+            g.fillRect(450, yPos, 20, 20);
+            g.drawString(products.get(i).getProduct().getName(), 475, yPos + 15);
+            yPos += 50;
+        }
+
+        int angleBerria = 0;
+        int angleZaharra = 0;
+        //Circle
+        for (int i = 0; i < products.size(); i++) {
+            angleZaharra += angleBerria;
+            angleBerria = ((products.get(i).getProductAmount() * 360) / total);
+            g.setColor(colors[i]);
+            g.fillArc(200, 175, 200, 200, angleZaharra, angleBerria);
+        }
+        g.setColor(Color.BLACK);
+        g.drawArc(200, 175, 199, 199, 0, 360);
+
     }
-    
-    public void drawReport4(Graphics g) {
-        g.setColor(Color.RED);
-        g.fillRect(70, 350 - 25, 10, 25);
-        g.fillRect(100, 350 - 45, 10, 45);
-        g.fillRect(130, 350 - 100, 10, 100);
-        g.fillRect(160, 350 - 60, 10, 60);
-        g.fillRect(190, 350 - 40, 10, 40);
-    }
-    
+
     public static void main(String[] args) {
         System.out.println(incomeFromRenting(2022));
     }

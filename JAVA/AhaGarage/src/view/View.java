@@ -53,12 +53,13 @@ public class View extends javax.swing.JFrame {
         jRadioButtonEmployeeByPosition = new javax.swing.JRadioButton();
         jComboBoxEmployeePos = new javax.swing.JComboBox<>();
         jRadioButtonTotalIncomeByMonth = new javax.swing.JRadioButton();
+        jComboBoxYear = new javax.swing.JComboBox<>();
         jDialogGraphicReports = new javax.swing.JDialog();
         jLabel = new javax.swing.JLabel();
         jRadioButtonReport1 = new javax.swing.JRadioButton();
         jRadioButtonReport2 = new javax.swing.JRadioButton();
         jRadioButtonReport3 = new javax.swing.JRadioButton();
-        jRadioButtonReport4 = new javax.swing.JRadioButton();
+        jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jButtonGraphicReports = new javax.swing.JButton();
         jButtonTextualReports = new javax.swing.JButton();
@@ -93,6 +94,9 @@ public class View extends javax.swing.JFrame {
 
         jRadioButtonTotalIncomeByMonth.setText("Total income by month");
 
+        jComboBoxYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015" }));
+        jComboBoxYear.setActionCommand("yearComboBox");
+
         javax.swing.GroupLayout jDialogTextualReportsLayout = new javax.swing.GroupLayout(jDialogTextualReports.getContentPane());
         jDialogTextualReports.getContentPane().setLayout(jDialogTextualReportsLayout);
         jDialogTextualReportsLayout.setHorizontalGroup(
@@ -104,7 +108,9 @@ public class View extends javax.swing.JFrame {
                     .addGroup(jDialogTextualReportsLayout.createSequentialGroup()
                         .addComponent(jComboBoxHilabetea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jComboBoxEmployeePos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jComboBoxEmployeePos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jComboBoxYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jDialogTextualReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jDialogTextualReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -118,14 +124,14 @@ public class View extends javax.swing.JFrame {
                     .addComponent(jRadioButtonTotalIncomeByMonth, javax.swing.GroupLayout.PREFERRED_SIZE, 167, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(22, 22, 22))
             .addGroup(jDialogTextualReportsLayout.createSequentialGroup()
-                .addGap(195, 195, 195)
+                .addGap(284, 284, 284)
                 .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jDialogTextualReportsLayout.setVerticalGroup(
             jDialogTextualReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDialogTextualReportsLayout.createSequentialGroup()
-                .addGroup(jDialogTextualReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(jDialogTextualReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jDialogTextualReportsLayout.createSequentialGroup()
                         .addGap(48, 48, 48)
                         .addComponent(jLabel3)
@@ -133,10 +139,11 @@ public class View extends javax.swing.JFrame {
                     .addGroup(jDialogTextualReportsLayout.createSequentialGroup()
                         .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(jDialogTextualReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                             .addComponent(jComboBoxHilabetea, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jComboBoxEmployeePos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addComponent(jComboBoxEmployeePos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jComboBoxYear, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(jDialogTextualReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(jDialogTextualReportsLayout.createSequentialGroup()
@@ -163,45 +170,53 @@ public class View extends javax.swing.JFrame {
         jLabel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel.setText("AHA GARAGE");
 
-        jRadioButtonReport1.setText("Report 1");
+        jRadioButtonReport1.setText("Total income");
 
-        jRadioButtonReport2.setText("Report 2");
+        jRadioButtonReport2.setText("Garage occupation by month");
 
-        jRadioButtonReport3.setText("Report 3");
+        jRadioButtonReport3.setText("Most sold products");
+        jRadioButtonReport3.setActionCommand("Products graphic");
+        jRadioButtonReport3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jRadioButtonReport3ActionPerformed(evt);
+            }
+        });
 
-        jRadioButtonReport4.setText("Report 4");
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel4.setText("REPORTS");
 
         javax.swing.GroupLayout jDialogGraphicReportsLayout = new javax.swing.GroupLayout(jDialogGraphicReports.getContentPane());
         jDialogGraphicReports.getContentPane().setLayout(jDialogGraphicReportsLayout);
         jDialogGraphicReportsLayout.setHorizontalGroup(
             jDialogGraphicReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDialogGraphicReportsLayout.createSequentialGroup()
+                .addGap(439, 439, 439)
+                .addComponent(jLabel)
+                .addContainerGap(511, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialogGraphicReportsLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGroup(jDialogGraphicReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jRadioButtonReport4)
+                    .addComponent(jLabel4)
                     .addComponent(jRadioButtonReport3)
                     .addComponent(jRadioButtonReport2)
                     .addComponent(jRadioButtonReport1))
-                .addGap(47, 47, 47))
-            .addGroup(jDialogGraphicReportsLayout.createSequentialGroup()
-                .addGap(159, 159, 159)
-                .addComponent(jLabel)
-                .addContainerGap(207, Short.MAX_VALUE))
+                .addGap(21, 21, 21))
         );
         jDialogGraphicReportsLayout.setVerticalGroup(
             jDialogGraphicReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDialogGraphicReportsLayout.createSequentialGroup()
-                .addGap(28, 28, 28)
+                .addGap(31, 31, 31)
                 .addComponent(jLabel)
-                .addGap(36, 36, 36)
+                .addGap(58, 58, 58)
+                .addComponent(jLabel4)
+                .addGap(27, 27, 27)
                 .addComponent(jRadioButtonReport1)
                 .addGap(43, 43, 43)
                 .addComponent(jRadioButtonReport2)
                 .addGap(42, 42, 42)
                 .addComponent(jRadioButtonReport3)
-                .addGap(42, 42, 42)
-                .addComponent(jRadioButtonReport4)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(294, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -255,6 +270,10 @@ public class View extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonTextualReportsActionPerformed
 
+    private void jRadioButtonReport3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jRadioButtonReport3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jRadioButtonReport3ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -296,19 +315,20 @@ public class View extends javax.swing.JFrame {
     public javax.swing.JButton jButtonTextualReports;
     public javax.swing.JComboBox<String> jComboBoxEmployeePos;
     public javax.swing.JComboBox<String> jComboBoxHilabetea;
+    public javax.swing.JComboBox<String> jComboBoxYear;
     public javax.swing.JDialog jDialogGraphicReports;
     public javax.swing.JDialog jDialogTextualReports;
     javax.swing.JLabel jLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     public javax.swing.JRadioButton jRadioButtonEmployeeByPosition;
     public javax.swing.JRadioButton jRadioButtonGarageOcuppation;
     public javax.swing.JRadioButton jRadioButtonProductsByMonth;
     public javax.swing.JRadioButton jRadioButtonReport1;
     public javax.swing.JRadioButton jRadioButtonReport2;
     public javax.swing.JRadioButton jRadioButtonReport3;
-    public javax.swing.JRadioButton jRadioButtonReport4;
     public javax.swing.JRadioButton jRadioButtonSoldProducts;
     public javax.swing.JRadioButton jRadioButtonTotalIncomeByMonth;
     public javax.swing.JRadioButton jRadioButtonTotalRentedHours;

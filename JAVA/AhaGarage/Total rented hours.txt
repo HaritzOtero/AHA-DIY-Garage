@@ -1,5 +1,5 @@
 CLIENT ID	NAME	RENTED HOURS	INCOME	
 ======================================================
- 2 alain 9 180
- 1 aitzol 8 160
- 3 haritz 3 60
+ 1 aitzol 25 500
+ 2 alain 21 420
+ 3 haritz 8 160

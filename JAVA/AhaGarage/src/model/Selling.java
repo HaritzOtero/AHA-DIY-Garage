@@ -97,6 +97,4 @@ public class Selling {
     public String toString() {
         return "Selling{" + "id=" + id + ", client=" + client + ", product=" + product + ", totalCost=" + totalCost + ", productAmount=" + productAmount + ", date=" + date + '}';
     }
-    
-    
 }
