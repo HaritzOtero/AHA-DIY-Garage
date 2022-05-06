@@ -1,0 +1,34 @@
+#taulaArgazkia {
+    width: 70px;
+    height: 70px;
+    margin: auto;
+}
+
+#tableCalendarTotal {
+    display: flex;
+    border: 1px solid black;
+}
+
+#tableCalendar {
+    border: 1px solid blue;
+    width: 50%;
+}
+
+#total {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid green;
+    width: 50%;
+}
+
+#selectedHours {
+    width: 100%;
+    height: 50%;
+    border: 1px solid red;
+}
+
+#selectedProducts {
+    width: 100%;
+    height: 50%;
+    border: 1px solid blue;
+}
