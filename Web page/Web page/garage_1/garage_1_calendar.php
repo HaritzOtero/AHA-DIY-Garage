@@ -7,6 +7,8 @@ $_SESSION['date'] = $day;
 
 $day = strtotime($day);
 
+
+  
 $week = strftime('%V', $day);
 
 $_SESSION['week'] = $week;

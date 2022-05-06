@@ -33,7 +33,7 @@
                     $_SESSION['userID'] = $emailOrID;
                     $_SESSION['position'] = $position;
                     $_SESSION['session'] = $session;
-                    header("Location:../FrontPage/index.php");
+                    header("Location:../index.php");
 
                     
                 $week = strftime('%V');
@@ -68,6 +68,6 @@
                 $_SESSION['date'] = date();
 
                 
-                header("Location:../FrontPage/index.php");
+                header("Location:../index.php");
             }
             ?>
