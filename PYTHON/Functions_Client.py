@@ -14,18 +14,18 @@ class Functions_Client:
     @staticmethod
     def showClientMenu():
         clientsOption = 0
-        while int(clientsOption) != 5:
-            print("")
-            print("Clients Menu")
-            print("================")
-            print("1.Add client")
-            print("2.Delete client")
-            print("3.View Clients")
-            print("4.Modify client")
-            print("5.Exit menu")
+        ##while int(clientsOption) != 5:
+        print("")
+        print("Clients Menu")
+        print("================")
+        print("1.Add client")
+        print("2.Delete client")
+        print("3.View Clients")
+        print("4.Modify client")
+        print("5.Exit menu")
 
-            clientsOption = input("Select an option: ")
-            return clientsOption
+        clientsOption = input("Select an option: ")
+        return clientsOption
 
 
     @staticmethod
@@ -76,7 +76,8 @@ class Functions_Client:
                     print("end of clients\n")
                     cont = 0
             for cl in objects:
-                print("ID: " + cl.Id + ",Name: " + cl.name + ",Surname: " + cl.surname + ",Address: " + cl.address + ",Movile: " + cl.movile)
+                #print("ID: " + cl.Id + ",Name: " + cl.name + ",Surname: " + cl.surname + ",Address: " + cl.address + ",Movile: " + cl.movile)
+                cl.print()
         else:
             print("There aren't any clients")
 
