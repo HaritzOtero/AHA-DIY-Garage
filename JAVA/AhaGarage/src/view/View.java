@@ -60,9 +60,12 @@ public class View extends javax.swing.JFrame {
         jRadioButtonReport2 = new javax.swing.JRadioButton();
         jRadioButtonReport3 = new javax.swing.JRadioButton();
         jLabel4 = new javax.swing.JLabel();
+        jComboBoxYearGraphics = new javax.swing.JComboBox<>();
+        jLabel5 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jButtonGraphicReports = new javax.swing.JButton();
         jButtonTextualReports = new javax.swing.JButton();
+        jLabelLogo = new javax.swing.JLabel();
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
         jLabel2.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -186,29 +189,38 @@ public class View extends javax.swing.JFrame {
         jLabel4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel4.setText("REPORTS");
 
+        jComboBoxYearGraphics.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2022", "2021" }));
+        jComboBoxYearGraphics.setActionCommand("comboBoxYearGraphics");
+
+        jLabel5.setText("YEAR");
+
         javax.swing.GroupLayout jDialogGraphicReportsLayout = new javax.swing.GroupLayout(jDialogGraphicReports.getContentPane());
         jDialogGraphicReports.getContentPane().setLayout(jDialogGraphicReportsLayout);
         jDialogGraphicReportsLayout.setHorizontalGroup(
             jDialogGraphicReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDialogGraphicReportsLayout.createSequentialGroup()
-                .addGap(439, 439, 439)
-                .addComponent(jLabel)
-                .addContainerGap(511, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialogGraphicReportsLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap(553, Short.MAX_VALUE)
                 .addGroup(jDialogGraphicReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4)
-                    .addComponent(jRadioButtonReport3)
-                    .addComponent(jRadioButtonReport2)
-                    .addComponent(jRadioButtonReport1))
-                .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialogGraphicReportsLayout.createSequentialGroup()
+                        .addGroup(jDialogGraphicReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4)
+                            .addComponent(jRadioButtonReport3)
+                            .addComponent(jRadioButtonReport2)
+                            .addComponent(jRadioButtonReport1)
+                            .addGroup(jDialogGraphicReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(jComboBoxYearGraphics, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGap(21, 21, 21))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jDialogGraphicReportsLayout.createSequentialGroup()
+                        .addComponent(jLabel)
+                        .addGap(537, 537, 537))))
         );
         jDialogGraphicReportsLayout.setVerticalGroup(
             jDialogGraphicReportsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jDialogGraphicReportsLayout.createSequentialGroup()
-                .addGap(31, 31, 31)
+                .addGap(29, 29, 29)
                 .addComponent(jLabel)
-                .addGap(58, 58, 58)
+                .addGap(60, 60, 60)
                 .addComponent(jLabel4)
                 .addGap(27, 27, 27)
                 .addComponent(jRadioButtonReport1)
@@ -216,12 +228,16 @@ public class View extends javax.swing.JFrame {
                 .addComponent(jRadioButtonReport2)
                 .addGap(42, 42, 42)
                 .addComponent(jRadioButtonReport3)
-                .addContainerGap(294, Short.MAX_VALUE))
+                .addGap(38, 38, 38)
+                .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 22, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jComboBoxYearGraphics, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(229, Short.MAX_VALUE))
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("AHA GARAGE");
 
@@ -236,31 +252,41 @@ public class View extends javax.swing.JFrame {
             }
         });
 
+        jLabelLogo.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabelLogo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(61, 61, 61)
+                .addGap(87, 87, 87)
                 .addComponent(jButtonGraphicReports, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButtonTextualReports, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(49, 49, 49))
+                .addGap(55, 55, 55))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(171, Short.MAX_VALUE)
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(168, 168, 168))
+                .addContainerGap(250, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 194, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(264, 264, 264))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(232, 232, 232))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(35, 35, 35)
+                .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(79, 79, 79)
+                .addGap(18, 18, 18)
+                .addComponent(jLabelLogo, javax.swing.GroupLayout.PREFERRED_SIZE, 178, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 30, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonGraphicReports, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButtonTextualReports, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(102, Short.MAX_VALUE))
+                    .addComponent(jButtonTextualReports, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButtonGraphicReports, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(77, 77, 77))
         );
 
         pack();
@@ -316,6 +342,7 @@ public class View extends javax.swing.JFrame {
     public javax.swing.JComboBox<String> jComboBoxEmployeePos;
     public javax.swing.JComboBox<String> jComboBoxHilabetea;
     public javax.swing.JComboBox<String> jComboBoxYear;
+    public javax.swing.JComboBox<String> jComboBoxYearGraphics;
     public javax.swing.JDialog jDialogGraphicReports;
     public javax.swing.JDialog jDialogTextualReports;
     javax.swing.JLabel jLabel;
@@ -323,6 +350,8 @@ public class View extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    public javax.swing.JLabel jLabelLogo;
     public javax.swing.JRadioButton jRadioButtonEmployeeByPosition;
     public javax.swing.JRadioButton jRadioButtonGarageOcuppation;
     public javax.swing.JRadioButton jRadioButtonProductsByMonth;

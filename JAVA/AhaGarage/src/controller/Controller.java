@@ -8,6 +8,7 @@ import java.awt.Graphics;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
+import javax.swing.ImageIcon;
 import javax.swing.JTable;
 import model.EmployeesByPositionTableModel;
 import model.GarageOccupationTableModel;
@@ -32,6 +33,7 @@ public class Controller implements ActionListener {
     public Controller(Model model, View view) {
         this.model = model;
         this.view = view;
+        view.jLabelLogo.setIcon(new ImageIcon("src/logo.png"));
         gehituActionListener(this);
 
         //view.jTextAreaTextualReports.setEditable(false);
@@ -48,7 +50,6 @@ public class Controller implements ActionListener {
         group2.add(view.jRadioButtonReport1);
         group2.add(view.jRadioButtonReport2);
         group2.add(view.jRadioButtonReport3);
-
 
     }
 
@@ -73,6 +74,8 @@ public class Controller implements ActionListener {
         view.jComboBoxYear.addActionListener(listener);
         //Save button
         view.jButtonSave.addActionListener(listener);
+        //Combo box graphic reports
+        view.jComboBoxYearGraphics.addActionListener(listener);
     }
 
     public void actionPerformed(ActionEvent e) {
@@ -80,9 +83,10 @@ public class Controller implements ActionListener {
         //listenerrak entzun dezakeen eragiketa bakoitzeko. Konponenteek 'actionCommand' propietatea daukate
         switch (actionCommand) {
             case "GRAPHIC REPORTS":
-                view.jDialogGraphicReports.setSize(1060, 600);
+                view.jDialogGraphicReports.setSize(1200, 600);
                 view.jDialogGraphicReports.setResizable(false);
                 view.jDialogGraphicReports.setVisible(true);
+                view.jComboBoxYearGraphics.setEnabled(false);
                 gGraphics = view.jDialogGraphicReports.getGraphics();
                 break;
             case "TEXTUAL REPORTS":
@@ -110,14 +114,16 @@ public class Controller implements ActionListener {
                 //view.jTextAreaTextualReports.setText("Most Sold Products");
                 break;
             case "Garage occupation":
-                view.jTableReports.setModel(new GarageOccupationTableModel(Model.garageOccupationArray(view.jComboBoxHilabetea.getSelectedItem().toString())));
                 view.jComboBoxHilabetea.setEnabled(true);
                 view.jComboBoxEmployeePos.setEnabled(false);
-                view.jComboBoxYear.setEnabled(false);
+                view.jComboBoxYear.setEnabled(true);
+                int year = Integer.parseInt(view.jComboBoxYear.getSelectedItem().toString());
+                view.jTableReports.setModel(new GarageOccupationTableModel(Model.garageOccupationArray(view.jComboBoxHilabetea.getSelectedItem().toString(),year)));
                 break;
             case "comboBoxChanged":
                 if (view.jRadioButtonGarageOcuppation.isSelected()) {
-                    view.jTableReports.setModel(new GarageOccupationTableModel(Model.garageOccupationArray(view.jComboBoxHilabetea.getSelectedItem().toString())));
+                    year = Integer.parseInt(view.jComboBoxYear.getSelectedItem().toString());
+                    view.jTableReports.setModel(new GarageOccupationTableModel(Model.garageOccupationArray(view.jComboBoxHilabetea.getSelectedItem().toString(),year)));
                 } else if (view.jRadioButtonProductsByMonth.isSelected()) {
                     view.jTableReports.setModel(new MostSoldProductsByMonthTableModel(Model.mostSoldProductsByMonth(view.jComboBoxHilabetea.getSelectedItem().toString())));
                 }
@@ -147,12 +153,17 @@ public class Controller implements ActionListener {
                 view.jComboBoxHilabetea.setEnabled(false);
                 view.jComboBoxEmployeePos.setEnabled(false);
                 view.jComboBoxYear.setEnabled(true);
-                int year = Integer.parseInt(view.jComboBoxYear.getSelectedItem().toString());
-                view.jTableReports.setModel(new TotalIncomeByMonthTableModel(Model.incomeFromSelling(year), Model.incomeFromRenting(year),Model.calculateTotalSelling(Model.incomeFromSelling(year)),Model.calculateTotalRenting(Model.incomeFromRenting(year))));
+                year = Integer.parseInt(view.jComboBoxYear.getSelectedItem().toString());
+                view.jTableReports.setModel(new TotalIncomeByMonthTableModel(Model.incomeFromSelling(year), Model.incomeFromRenting(year), Model.calculateTotalSelling(Model.incomeFromSelling(year)), Model.calculateTotalRenting(Model.incomeFromRenting(year))));
                 break;
             case "yearComboBox":
                 year = Integer.parseInt(view.jComboBoxYear.getSelectedItem().toString());
-                view.jTableReports.setModel(new TotalIncomeByMonthTableModel(Model.incomeFromSelling(year), Model.incomeFromRenting(year),Model.calculateTotalSelling(Model.incomeFromSelling(year)),Model.calculateTotalRenting(Model.incomeFromRenting(year))));
+                if(view.jRadioButtonTotalIncomeByMonth.isSelected()){
+                    view.jTableReports.setModel(new TotalIncomeByMonthTableModel(Model.incomeFromSelling(year), Model.incomeFromRenting(year), Model.calculateTotalSelling(Model.incomeFromSelling(year)), Model.calculateTotalRenting(Model.incomeFromRenting(year))));
+                }else if(view.jRadioButtonGarageOcuppation.isSelected()){
+                    view.jTableReports.setModel(new GarageOccupationTableModel(Model.garageOccupationArray(view.jComboBoxHilabetea.getSelectedItem().toString(),year)));
+                }
+                
                 break;
             case "SAVE":
                 String reportName = "";
@@ -172,20 +183,32 @@ public class Controller implements ActionListener {
                 }
 
                 Model.saveReportTxt(view.jTableReports, reportName);
-
                 break;
             case "Total income":
                 //Draw report 1
-                model.drawReport1(gGraphics,Model.incomeFromSelling(2022),Model.incomeFromRenting(2022));
+                view.jComboBoxYearGraphics.setEnabled(true);
+                year = Integer.parseInt(view.jComboBoxYearGraphics.getSelectedItem().toString());
+                model.drawReport1(gGraphics, Model.incomeFromSelling(year), Model.incomeFromRenting(year));
                 break;
             case "Garage occupation by month":
                 //Draw report 2
-                model.drawReport2(gGraphics);
+                year = Integer.parseInt(view.jComboBoxYearGraphics.getSelectedItem().toString());
+                view.jComboBoxYearGraphics.setEnabled(true);
+                model.drawReport2(gGraphics, Model.garageOccupationByMonth(year));
                 break;
             case "Products graphic":
                 //Draw report 3
-                model.drawReport3(gGraphics,Model.mostSoldProductsArray());
+                view.jComboBoxYearGraphics.setEnabled(false);
+                model.drawReport3(gGraphics, Model.mostSoldProductsArray());
                 break;
+            case "comboBoxYearGraphics":
+                year = Integer.parseInt(view.jComboBoxYearGraphics.getSelectedItem().toString());
+                if (view.jRadioButtonReport1.isSelected()) {
+                    model.drawReport1(gGraphics, Model.incomeFromSelling(year), Model.incomeFromRenting(year));
+                } else if (view.jRadioButtonReport2.isSelected()) {
+                    model.drawReport2(gGraphics, Model.garageOccupationByMonth(year));
+                }
+
         }
     }
 }
