@@ -97,7 +97,7 @@ public class View extends javax.swing.JFrame {
 
         jRadioButtonTotalIncomeByMonth.setText("Total income by month");
 
-        jComboBoxYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2022", "2021", "2020", "2019", "2018", "2017", "2016", "2015" }));
+        jComboBoxYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2022", "2021", " " }));
         jComboBoxYear.setActionCommand("yearComboBox");
 
         javax.swing.GroupLayout jDialogTextualReportsLayout = new javax.swing.GroupLayout(jDialogTextualReports.getContentPane());
