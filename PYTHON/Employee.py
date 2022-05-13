@@ -50,4 +50,4 @@ class Employee:
         return self.position
 
     def print(self):
-        print("ID: " + self.Id + ",Name: " + self.name + ",Surname: " + self.surname + ",Address: " + self.address + ",Movile: " + self.movile + ",Position: " + self.position)
+        print("ID: " + str(self.Id) + ",Name: " + self.name + ",Surname: " + self.surname + ",Address: " + self.address + ",Movile: " + str(self.movile) + ",Position: " + self.position)

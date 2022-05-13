@@ -34,4 +34,4 @@ class Product:
         return self.price
 
     def print(self):
-        print("ID: " + self.id + ",Name: " + self.name + ",Description: " + self.description + ",Price: " + self.price)
+        print("ID: " + str(self.id) + ",Name: " + self.name + ",Description: " + self.description + ",Price: " + str(self.price))

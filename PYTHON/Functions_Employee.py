@@ -6,13 +6,13 @@ from Employee import  Employee
 
 class Functions_Employee:
 
-    @staticmethod
-    def saveEmployee(obj, filename):
+
+    def saveEmployee(self,obj, filename):
         with open(filename, 'ab') as outp:  # Overwrites any existing file.
             pickle.dump(obj, outp, pickle.HIGHEST_PROTOCOL)
 
-    @staticmethod
-    def showEmployeeMenu():
+
+    def showEmployeeMenu(self):
         employeeOption = 0
 
         print("")
@@ -27,8 +27,8 @@ class Functions_Employee:
         employeeOption = input("Select an option: ")
         return employeeOption
 
-    @staticmethod
-    def addEmployee():
+
+    def addEmployee(self):
         e1 = Employee()
         e1.setId()
         e1.setName()
@@ -37,12 +37,14 @@ class Functions_Employee:
         e1.setMovile()
         e1.setPosition()
         e1.print()
-        Functions_Employee.saveEmployee(e1, 'Employees.pkl')
+        function_Employee = Functions_Employee()
+        function_Employee.saveEmployee(e1, 'Employees.pkl')
 
-    @staticmethod
-    def deleteEmployee():
+
+    def deleteEmployee(self):
         if os.path.exists('Employees.pkl'):
-            Functions_Employee.viewEmployees()
+            function_Employee = Functions_Employee()
+            function_Employee.viewEmployees()
             employeeId = input("Enter the id of the employee: ")
             inp = open('Employees.pkl', 'rb')
             objects = []
@@ -58,12 +60,12 @@ class Functions_Employee:
                 os.remove('Employees.pkl')
             for cl in objects:
                 if int(cl.Id) != int(employeeId):
-                    Functions_Employee.saveEmployee(cl, 'Employees.pkl')
+                    function_Employee.saveEmployee(cl, 'Employees.pkl')
         else:
             print("There aren't any employees")
 
-    @staticmethod
-    def viewEmployees():
+
+    def viewEmployees(self):
         if os.path.exists('Employees.pkl'):
 
             inp = open('Employees.pkl', 'rb')
@@ -81,11 +83,12 @@ class Functions_Employee:
         else:
             print("There aren't any employees")
 
-    @staticmethod
-    def modifyEmployee():
+
+    def modifyEmployee(self):
         print("Modifying employee")
         if os.path.exists('Employees.pkl'):
-            Functions_Employee.viewEmployees()
+            function_Employee = Functions_Employee()
+            function_Employee.viewEmployees()
             employeeId = input("Enter the id of the employee: ")
             inp = open('Employees.pkl', 'rb')
             objects = []
@@ -101,7 +104,7 @@ class Functions_Employee:
                 os.remove('Employees.pkl')
             for cl in objects:
                 if int(cl.Id) != int(employeeId):
-                    Functions_Employee.saveEmployee(cl, 'Employees.pkl')
+                    function_Employee.saveEmployee(cl, 'Employees.pkl')
                 elif int(cl.Id) == int(employeeId):
                     e1 = Employee()
                     e1.setIdWP(employeeId)
@@ -110,7 +113,7 @@ class Functions_Employee:
                     e1.setAddress()
                     e1.setMovile()
                     e1.setPosition()
-                    Functions_Employee.saveEmployee(e1, 'Employees.pkl')
+                    function_Employee.saveEmployee(e1, 'Employees.pkl')
                 else:
                     print("There isn't any employee with the same id")
         else:

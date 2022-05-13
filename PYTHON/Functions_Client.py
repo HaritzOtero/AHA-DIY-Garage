@@ -6,13 +6,13 @@ from Client import Client
 
 class Functions_Client:
 
-    @staticmethod
-    def saveClient(obj,filename):
+
+    def saveClient(self,obj,filename):
         with open(filename, 'ab') as outp:  # Overwrites any existing file.
             pickle.dump(obj, outp, pickle.HIGHEST_PROTOCOL)
 
-    @staticmethod
-    def showClientMenu():
+
+    def showClientMenu(self):
         clientsOption = 0
         ##while int(clientsOption) != 5:
         print("")
@@ -28,8 +28,8 @@ class Functions_Client:
         return clientsOption
 
 
-    @staticmethod
-    def addClient():
+
+    def addClient(self):
         c1 = Client()
         c1.setId()
         c1.setName()
@@ -37,12 +37,14 @@ class Functions_Client:
         c1.setAddress()
         c1.setMovile()
         c1.print()
-        Functions_Client.saveClient(c1, 'Clients.pkl')
+        function_Client = Functions_Client()
+        function_Client.saveClient(c1, 'Clients.pkl')
 
-    @staticmethod
-    def deleteClient():
+
+    def deleteClient(self):
         if os.path.exists('Clients.pkl'):
-            Functions_Client.viewClients()
+            function_Client = Functions_Client()
+            function_Client.viewClients()
             clientID = input("Enter the id of the client: ")
             inp = open('Clients.pkl', 'rb')
             objects = []
@@ -58,12 +60,12 @@ class Functions_Client:
                 os.remove('Clients.pkl')
             for cl in objects:
                 if int(cl.Id) != int(clientID):
-                    Functions_Client.saveClient(cl, 'Clients.pkl')
+                    function_Client.saveClient(cl, 'Clients.pkl')
         else:
             print("There aren't any clients")
 
-    @staticmethod
-    def viewClients():
+
+    def viewClients(self):
         if os.path.exists('Clients.pkl'):
 
             inp = open('Clients.pkl', 'rb')
@@ -81,11 +83,12 @@ class Functions_Client:
         else:
             print("There aren't any clients")
 
-    @staticmethod
-    def modifyClient():
+
+    def modifyClient(self):
         print("Modifying client")
         if os.path.exists('Clients.pkl'):
-            Functions_Client.viewClients()
+            function_Client = Functions_Client()
+            function_Client.viewClients()
             clientID = input("Enter the id of the client: ")
             inp = open('Clients.pkl', 'rb')
             objects = []
@@ -101,7 +104,7 @@ class Functions_Client:
                 os.remove('Clients.pkl')
             for cl in objects:
                 if int(cl.Id) != int(clientID):
-                    Functions_Client.saveClient(cl, 'Clients.pkl')
+                    function_Client.saveClient(cl, 'Clients.pkl')
                 elif int(cl.Id) == int(clientID):
                     c1 = Client()
                     c1.setIdWP(clientID)
@@ -109,7 +112,7 @@ class Functions_Client:
                     c1.setSurname()
                     c1.setAddress()
                     c1.setMovile()
-                    Functions_Client.saveClient(c1, 'Clients.pkl')
+                    function_Client.saveClient(c1, 'Clients.pkl')
                 else:
                     print("There isn't any client with the same id ")
         else:

@@ -44,5 +44,5 @@ class Client:
         return self.movile
 
     def print(self):
-        print("ID: " + self.Id + ",Name: " + self.name + ",Surname: " + self.surname + ",Address: " + self.address + ",Movile: " + self.movile)
+        print("ID: " + str(self.Id) + ",Name: " + self.name + ",Surname: " + self.surname + ",Address: " + self.address + ",Movile: " + str(self.movile))
 

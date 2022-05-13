@@ -18,51 +18,54 @@ while int(optionSelected) != 4:
     if int(optionSelected) == 1:
         clientOption = 0
         while int(clientOption) != 5:
-            clientOption = Functions_Client.showClientMenu()
+            function_Client = Functions_Client()
+            clientOption = function_Client.showClientMenu()
             if int(clientOption) == 1:
                 ##Add client
-                Functions_Client.addClient()
+                function_Client.addClient()
             elif int(clientOption) == 2:
                 ##Delete client
-                Functions_Client.deleteClient()
+                function_Client.deleteClient()
             elif int(clientOption) == 3:
                 ##View clients
-                Functions_Client.viewClients()
+                function_Client.viewClients()
             elif int(clientOption) == 4:
                ##Modify client
-               Functions_Client.modifyClient()
-                
+               function_Client.modifyClient()
+
     elif int(optionSelected) == 2:
         employeeOption = 0
         while int(employeeOption) != 5:
-            employeeOption = Functions_Employee.showEmployeeMenu()
+            function_Employee = Functions_Employee()
+            employeeOption = function_Employee.showEmployeeMenu()
             if int(employeeOption) == 1:
                 ##Add employee
-                Functions_Employee.addEmployee()
+                function_Employee.addEmployee()
             elif int(employeeOption) == 2:
                 ##Delete employee
-                Functions_Employee.deleteEmployee()
+                function_Employee.deleteEmployee()
             elif int(employeeOption) == 3:
                 ##View employee
-                Functions_Employee.viewEmployees()
+                function_Employee.viewEmployees()
             elif int(employeeOption) == 4:
                ##Modify employee
-               Functions_Employee.modifyEmployee()
+               function_Employee.modifyEmployee()
 
     elif int(optionSelected) == 3:
         productOption = 0
         while int(productOption) != 5:
-            productOption = Functions_Product.showProductMenu()
+            function_Product = Functions_Product()
+            productOption = function_Product.showProductMenu()
             if int(productOption) == 1:
                 ##Add product
-                Functions_Product.addProduct()
+                function_Product.addProduct()
             elif int(productOption) == 2:
                 ##Delete product
-                Functions_Product.deleteProduct()
+                function_Product.deleteProduct()
             elif int(productOption) == 3:
                 ##View products
-                Functions_Product.viewProducts()
+                function_Product.viewProducts()
             elif int(productOption) == 4:
                 ##Modify products
-                Functions_Product.modifyProduct()
+                function_Product.modifyProduct()
 
