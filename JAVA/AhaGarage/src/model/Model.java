@@ -44,29 +44,6 @@ public class Model {
         return conn;
     }
 
-    public static void garageOccupation(String month, int year) {
-        String sql = "select date,r.client_id,c.name,garage_id, rented_hours  from renting r,client c where  c.client_id = r.client_id and monthname(`date`) = ? and year(`date`) = ? group by date";
-
-        try ( Connection conn = Model.connect();  PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, month);
-            pstmt.setInt(2, year);
-            ResultSet rs = pstmt.executeQuery();
-
-            System.out.printf("%15s %15s %15s %15s %15s %15s\n", "DATE", "CLIENT_ID", "NAME", "GARAGE_ID", "RENTED HOURS", "INCOME");
-            System.out.printf("====================================================================================================================");
-            // loop through the result set
-            while (rs.next()) {
-                Client c1 = new Client(rs.getInt("r.client_id"), rs.getString("c.name"), "");
-                Garage g1 = new Garage(rs.getInt("garage_id"));
-                Renting r1 = new Renting(c1, rs.getInt("rented_hours") * 20, rs.getInt("rented_hours"), g1, rs.getDate("date").toLocalDate());
-                System.out.printf("\n%15s %15d %15s %15d %15d %15d", r1.getDate().toString(), r1.getClient().getId(), r1.getClient().getName(), r1.getGarage().getGarageCode(), r1.getHours(), r1.getHours() * r1.getPrice());
-            }
-            System.out.println("");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
     public static ArrayList<Selling> mostSoldProductsArray() {
         String sql = "select p.product_id, name, sum(amount),sum(total_cost) from products p left join selling s on s.product_id  = p.product_id group by product_id order by amount desc";
         ArrayList<Selling> products = new ArrayList();
@@ -86,7 +63,7 @@ public class Model {
     }
 
     public static ArrayList<Renting> garageOccupationArray(String month, int year) {
-        String sql = "select date,r.client_id,c.name,garage_id, rented_hours ,sum(rented_hours)*20 as income  from renting r,client c where  c.client_id = r.client_id and monthname(`date`) = ? and year(`date`) = ? group by date";
+        String sql = "select date,r.client_id,c.name,garage_id, count(renting_id) from renting r,client c where c.client_id = r.client_id and monthname(`date`) = ? and year(`date`) = ? group by renting_id order by date asc";
         ArrayList<Renting> occupation = new ArrayList<>();
         try ( Connection conn = Model.connect();  PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1, month);
@@ -97,7 +74,7 @@ public class Model {
             while (rs.next()) {
                 Client c1 = new Client(rs.getInt("r.client_id"), rs.getString("name"), "");
                 Garage g1 = new Garage(rs.getInt("garage_id"));
-                Renting r1 = new Renting(c1, rs.getInt("rented_hours") * 20, rs.getInt("rented_hours"), g1, rs.getDate("date").toLocalDate());
+                Renting r1 = new Renting(c1, rs.getInt("count(renting_id)") * 20, rs.getInt("count(renting_id)"), g1, rs.getDate("date").toLocalDate());
                 occupation.add(r1);
             }
             return occupation;
@@ -129,7 +106,7 @@ public class Model {
     }
 
     public static ArrayList<Renting> totalRentedHoursByClient() {
-        String sql = "SELECT r.client_id , name, sum(rented_hours) from  client c ,renting r where r.client_id = c.client_id group by r.client_id order by sum(rented_hours) desc ";
+        String sql = "SELECT r.client_id , name, count(renting_id) from client c ,renting r where r.client_id = c.client_id group by r.client_id order by count(renting_id) desc";
         ArrayList<Renting> occupation = new ArrayList<>();
         try ( Connection conn = Model.connect();  PreparedStatement pstmt = conn.prepareStatement(sql)) {
             ResultSet rs = pstmt.executeQuery();
@@ -138,7 +115,7 @@ public class Model {
             while (rs.next()) {
                 Client c1 = new Client(rs.getInt("r.client_id"), rs.getString("name"), "");
                 Garage g1 = new Garage(0);
-                Renting r1 = new Renting(c1, rs.getInt("sum(rented_hours)") * 20, rs.getInt("sum(rented_hours)"), g1, null);
+                Renting r1 = new Renting(c1, rs.getInt("count(renting_id)") * 20, rs.getInt("count(renting_id)"), g1, null);
                 occupation.add(r1);
             }
             return occupation;
@@ -200,7 +177,7 @@ public class Model {
     }
 
     public static ArrayList<Renting> incomeFromRenting(int year) {
-        String sql = "select date,sum(rented_hours) from renting r where year(date) = ? group by month(date)";
+        String sql = "select date,count(renting_id) from renting r where year(date) = ? group by month(date)";
         ArrayList<Renting> incomeRenting = new ArrayList<>();
         try ( Connection conn = Model.connect();  PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, year);
@@ -213,7 +190,8 @@ public class Model {
             // loop through the result set
             while (rs.next()) {
                 LocalDate date = rs.getDate("date").toLocalDate();
-                Renting r1 = new Renting(LocalDate.of(year, date.getMonth(), 01), rs.getInt("sum(rented_hours)") * 20);
+                Renting r1 = new Renting(LocalDate.of(year, date.getMonth(), 01), rs.getInt("count(renting_id)") * 20);
+
                 for (int i = 0; i < 12; i++) {
                     if (r1.getDate().getYear() == year && r1.getDate().getMonth() == incomeRenting.get(i).getDate().getMonth()) {
                         incomeRenting.set(i, r1);
@@ -248,7 +226,7 @@ public class Model {
     }
 
     public static ArrayList<Renting> garageOccupationByMonth(int year) {
-        String sql = "select date,sum(rented_hours),garage_id from renting r where year(date) = ? group by month(`date`)";
+        String sql = "select date,count(renting_id),garage_id from renting r where year(date) = ? group by month(`date`)";
         ArrayList<Renting> garageOccupation = new ArrayList<>();
         try ( Connection conn = Model.connect();  PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setInt(1, year);
@@ -262,7 +240,7 @@ public class Model {
             while (rs.next()) {
                 LocalDate date = rs.getDate("date").toLocalDate();
                 Garage g1 = new Garage(rs.getInt("garage_id"));
-                Renting r1 = new Renting(LocalDate.of(year, date.getMonth(), 01), rs.getInt("sum(rented_hours)"), g1);
+                Renting r1 = new Renting(LocalDate.of(year, date.getMonth(), 01), rs.getInt("count(renting_id)"), g1);
                 for (int i = 0; i < 12; i++) {
                     if (r1.getDate().getYear() == year && r1.getDate().getMonth() == garageOccupation.get(i).getDate().getMonth()) {
                         garageOccupation.set(i, r1);
@@ -411,7 +389,21 @@ public class Model {
             //Info
             g.setColor(Color.BLACK);
             g.drawString("MONTHS", 860, 405);
-            g.drawString("INCOME", 50, 190);
+            g.drawString("INCOME", 50, 185);
+            //Dinero
+            g.drawString("0", 85, 400);
+            if(maxRenting > maxSelling){
+                g.drawString(String.valueOf(maxRenting), 75, 200);
+                g.drawString(String.valueOf(maxRenting/2), 75, 300);
+                g.drawString(String.valueOf(maxRenting/4), 75, 350);
+                g.drawString(String.valueOf((int)(maxRenting/1.33)), 75, 250);
+            }else{
+                g.drawString(String.valueOf(maxSelling/2), 75, 300);
+                 g.drawString(String.valueOf(maxSelling/2), 75, 300);
+                 g.drawString(String.valueOf(maxSelling/4), 75, 350);
+                 g.drawString(String.valueOf((int)(maxSelling/1.33)), 75, 250);
+            }
+            
         }
     }
 
@@ -490,6 +482,6 @@ public class Model {
     }
 
     public static void main(String[] args) {
-        connect();
+        System.out.println(garageOccupationArray("May", 2022));
     }
 }

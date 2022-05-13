@@ -10,13 +10,13 @@ import java.awt.event.ActionListener;
 import javax.swing.ButtonGroup;
 import javax.swing.ImageIcon;
 import javax.swing.JTable;
-import model.EmployeesByPositionTableModel;
-import model.GarageOccupationTableModel;
+import tablemodel.EmployeesByPositionTableModel;
+import tablemodel.GarageOccupationTableModel;
 import model.Model;
-import model.MostSoldProductsByMonthTableModel;
-import model.SoldProductsTableModel;
-import model.TotalIncomeByMonthTableModel;
-import model.TotalRentedHoursByClientTableModel;
+import tablemodel.MostSoldProductsByMonthTableModel;
+import tablemodel.SoldProductsTableModel;
+import tablemodel.TotalIncomeByMonthTableModel;
+import tablemodel.TotalRentedHoursByClientTableModel;
 import view.View;
 
 /**
@@ -28,7 +28,7 @@ public class Controller implements ActionListener {
     private Model model;
     private View view;
     private Graphics gGraphics;
-    ButtonGroup group1;
+    private ButtonGroup group1;
 
     public Controller(Model model, View view) {
         this.model = model;

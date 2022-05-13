@@ -5,7 +5,7 @@
 package view;
 
 import model.Model;
-import model.SoldProductsTableModel;
+import tablemodel.SoldProductsTableModel;
 
 /**
  *
@@ -88,7 +88,7 @@ public class View extends javax.swing.JFrame {
         jTableReports.setModel(new SoldProductsTableModel(Model.mostSoldProductsArray()));
         jScrollPane3.setViewportView(jTableReports);
 
-        jComboBoxHilabetea.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March", "April", "May ", "June ", "July ", "August", "September", "October", "November", "December" }));
+        jComboBoxHilabetea.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December" }));
 
         jRadioButtonEmployeeByPosition.setText("Employees by position");
 
@@ -97,7 +97,7 @@ public class View extends javax.swing.JFrame {
 
         jRadioButtonTotalIncomeByMonth.setText("Total income by month");
 
-        jComboBoxYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2022", "2021", " " }));
+        jComboBoxYear.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "2022", "2021" }));
         jComboBoxYear.setActionCommand("yearComboBox");
 
         javax.swing.GroupLayout jDialogTextualReportsLayout = new javax.swing.GroupLayout(jDialogTextualReports.getContentPane());
