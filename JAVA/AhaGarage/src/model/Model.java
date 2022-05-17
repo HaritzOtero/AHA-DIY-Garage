@@ -392,18 +392,18 @@ public class Model {
             g.drawString("INCOME", 50, 185);
             //Dinero
             g.drawString("0", 85, 400);
-            if(maxRenting > maxSelling){
+            if (maxRenting > maxSelling) {
                 g.drawString(String.valueOf(maxRenting), 75, 200);
-                g.drawString(String.valueOf(maxRenting/2), 75, 300);
-                g.drawString(String.valueOf(maxRenting/4), 75, 350);
-                g.drawString(String.valueOf((int)(maxRenting/1.33)), 75, 250);
-            }else{
-                g.drawString(String.valueOf(maxSelling/2), 75, 300);
-                 g.drawString(String.valueOf(maxSelling/2), 75, 300);
-                 g.drawString(String.valueOf(maxSelling/4), 75, 350);
-                 g.drawString(String.valueOf((int)(maxSelling/1.33)), 75, 250);
+                g.drawString(String.valueOf(maxRenting / 2), 75, 300);
+                g.drawString(String.valueOf(maxRenting / 4), 75, 350);
+                g.drawString(String.valueOf((int) (maxRenting / 1.33)), 75, 250);
+            } else {
+                g.drawString(String.valueOf(maxSelling / 2), 75, 300);
+                g.drawString(String.valueOf(maxSelling / 2), 75, 300);
+                g.drawString(String.valueOf(maxSelling / 4), 75, 350);
+                g.drawString(String.valueOf((int) (maxSelling / 1.33)), 75, 250);
             }
-            
+
         }
     }
 
@@ -468,10 +468,18 @@ public class Model {
         try {
             //Circle
             for (int i = 0; i < products.size(); i++) {
-                angleZaharra += angleBerria;
-                angleBerria = ((products.get(i).getProductAmount() * 360) / total);
-                g.setColor(colors[i]);
-                g.fillArc(200, 175, 200, 200, angleZaharra, angleBerria);
+                if (i == products.size() - 1) {
+                    angleZaharra += angleBerria;
+                    angleBerria = 360 - angleZaharra;
+                    g.setColor(colors[i]);
+                    g.fillArc(200, 175, 200, 200, angleZaharra, angleBerria);
+                } else {
+                    angleZaharra += angleBerria;
+                    angleBerria = ((products.get(i).getProductAmount() * 360) / total);
+                    g.setColor(colors[i]);
+                    g.fillArc(200, 175, 200, 200, angleZaharra, angleBerria);
+                }
+
             }
         } catch (ArithmeticException e) {
             System.out.println(e);
