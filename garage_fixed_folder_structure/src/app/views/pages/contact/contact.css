@@ -1,0 +1,85 @@
+/* Banner */
+
+.banner {
+    background-image: url('../../../../assets/images/backgrounds/contact.jpg');
+    background-position: top;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+/* Form */
+
+.contact-box {
+    padding: 10em 0;
+}
+
+.contact-wrap {
+    position: relative;
+}
+
+.wrap {
+    width: 100%;
+    border-radius: 5px;
+    box-shadow: 5px 15px 39px -15px black;
+}
+
+
+/* Background Image Form */
+
+.img {
+    background-image: url("../../../../assets/images/backgrounds/contact.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center center;
+    width: 50%;
+}
+
+.form-group {
+    position: relative;
+}
+
+.form-group .label {
+    font-size: 12px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-weight: 700;
+}
+
+.form-control {
+    height: 48px;
+    font-size: 16px;
+    border-radius: 5px;
+    -webkit-box-shadow: none;
+    box-shadow: none;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.contact-form {
+    display: block;
+    width: 40%;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.UserIcon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+
+/* Mobile */
+
+@media screen and (max-width: 1000px) {
+    .img {
+        visibility: hidden;
+    }
+    .contact-form {
+        width: 100%;
+    }
+}

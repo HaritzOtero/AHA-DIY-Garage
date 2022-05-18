@@ -1,0 +1,27 @@
+.banner {
+    background-image: url('../../../../assets/images/backgrounds/about-us.jpg');
+    height: 50vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.card-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.information {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.UserIcon {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+}
