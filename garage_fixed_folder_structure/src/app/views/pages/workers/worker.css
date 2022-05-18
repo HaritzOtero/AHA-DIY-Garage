@@ -24,12 +24,27 @@
     font-size: 15px;
 }
 
+#nagusia {
+    margin: auto;
+    width: 1500px;
+}
+
 
 /* Products */
 
 #argazkiaProducts {
     width: 100px;
     height: 100px;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 8px;
+}
+
+tr:nth-child(even) {
+    background-color: #f2f2f2;
 }
 
 th {
@@ -50,9 +65,4 @@ tr:hover {
 
 #tabla {
     background-color: rgba(0, 0, 0, 0);
-}
-
-#nagusia {
-    margin: auto;
-    width: 1500px;
 }

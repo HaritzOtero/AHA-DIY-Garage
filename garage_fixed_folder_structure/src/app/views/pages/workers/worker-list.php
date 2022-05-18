@@ -35,7 +35,7 @@
 
 
 
-        <table border='1'>
+        <table>
 		<tr>
         <Th>employee id</Th><Th>name</Th><Th>surname</Th><Th>address</Th><Th>phone number</Th><Th>age</Th><Th>salary</Th><Th>position</Th><Th>password</Th><Th>edit</Th><Th>remove</Th>
 		</tr>

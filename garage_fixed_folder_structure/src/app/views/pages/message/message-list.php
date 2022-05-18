@@ -27,7 +27,7 @@ include_once("../../../includes/head/head.php");
 
     ?>
 
-    <table border='1'>
+    <table border='1' id="table1">
         <tr>
             <Th>Client information</Th>
             <Th>Message</Th>
@@ -39,7 +39,7 @@ include_once("../../../includes/head/head.php");
 
 		<tr>
 					<td>
-                        <table border='1'>
+                        <table>
                         <tr>
                                 <td> %s </td>
                             </tr>

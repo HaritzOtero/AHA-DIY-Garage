@@ -1,35 +1,18 @@
-.fakeimg {
-    height: 200px;
-    background: #aaa;
-}
-
-#argazkia {
-    width: 150px;
-    height: 100px;
-}
-
 .UserIcon {
     width: 30px;
     height: 30px;
     border-radius: 50%;
 }
 
-.underLine {
-    text-decoration-line: underline;
+#nagusia {
+    margin: auto;
+    width: 1500px;
 }
 
-.socialMedia {
-    color: black;
-    font-weight: bold;
-    font-size: 15px;
-}
-
-
-/* Products */
-
-#argazkiaProducts {
-    width: 100px;
-    height: 100px;
+th,
+td {
+    text-align: left;
+    padding: 8px;
 }
 
 th {
@@ -50,9 +33,4 @@ tr:hover {
 
 #tabla {
     background-color: rgba(0, 0, 0, 0);
-}
-
-#nagusia {
-    margin: auto;
-    width: 1500px;
 }
